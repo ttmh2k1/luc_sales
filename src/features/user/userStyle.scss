@@ -1,0 +1,16 @@
+.user {
+  display: flex;
+  width: 100%;
+
+  .userContainer {
+    flex: 6;
+    background-color: #eee;
+
+    .body {
+      background-color: #955b36;
+      padding: 1.2rem;
+      margin: 2rem;
+      border-radius: 0.4rem;
+    }
+  }
+}

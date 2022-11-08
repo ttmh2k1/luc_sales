@@ -1,0 +1,24 @@
+:root {
+  --color-white: #fff;
+  --color-dark: #272424;
+  --sibar-background: rgba(0, 0, 0, 0.3);
+  --s-width: 900px;
+  --s-gutter: 2.5rem;
+  --c-background: rgb(0, 0, 0);
+  --active-background: #d7efd6;
+  --c-accent: #d7efd6;
+}
+
+$desktop: desktop;
+$laptop: laptop;
+$tablet: tablet;
+$phablet: phablet;
+$mobile: mobile;
+
+$header-height: 10rem;
+$screen-max-width: 166rem;
+
+$color--black: #000000;
+$color--white: #ffffff;
+$black--medium: rgba($color--black, 0.64);
+$black--disabled: rgba($color--black, 0.43);

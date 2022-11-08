@@ -1,25 +1,89 @@
-import logo from './logo.svg';
-import './App.css';
+// eslint-disable-next-line
+import React from "react"
+import { Routes, Route, BrowserRouter } from "react-router-dom"
+import Home from "./pages/index"
+import LoginSystem from "./pages/login/system/loginSystem"
+import ForgotPassword from "./pages/login/forgotPw/forgotPassword"
+import User from "./pages/user/index"
+import ViewUser from "./pages/user/view/viewUser"
+import Role from "./pages/role/index"
+import LogSystem from "./pages/logSystem/index"
+import Order from "./pages/order/index"
+import ProductGroup from "./pages/productGroup/index"
+import Product from "./pages/product/index"
+import CustomerGroup from "./pages/customerGroup/index"
+import Customer from "./pages/customer/index"
+import Warehouse from "./pages/warehouse/index"
+import BusinessReport from "./pages/businessReport/index"
+import SystemReport from "./pages/systemReport/index"
+import ChangePassword from "./pages/changePassword"
 
-function App() {
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/" exact element={<Home />} />
+          <Route path="/login" exact element={<LoginSystem />} />
+          <Route path="/forgotPassword" exact element={<ForgotPassword />} />
+          <Route path="/user" exact element={<User />} />
+          <Route path="/role" exact element={<Role />} />
+          <Route path="/logSystem" exact element={<LogSystem />} />
+          <Route path="/order" exact element={<Order />} />
+          <Route path="/productGroup" exact element={<ProductGroup />} />
+          <Route path="/product" exact element={<Product />} />
+          <Route path="/customerGroup" exact element={<CustomerGroup />} />
+          <Route path="/customer" exact element={<Customer />} />
+          <Route path="/warehouse" exact element={<Warehouse />} />
+          <Route path="/businessReport" exact element={<BusinessReport />} />
+          <Route path="/systemReport" exact element={<SystemReport />} />
+          <Route path="/changePassword" exact element={<ChangePassword />} /> */}
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="login" element={<LoginSystem />} />
+            <Route path="user">
+              <Route index element={<User />} />
+              <Route path=":userId" element={<ViewUser />} />
+            </Route>
+            <Route path="role">
+              <Route index element={<Role />} />
+            </Route>
+            <Route path="logs">
+              <Route index element={<LogSystem />} />
+            </Route>
+            <Route path="order">
+              <Route index element={<Order />} />
+            </Route>
+            <Route path="productGroup">
+              <Route index element={<ProductGroup />} />
+            </Route>
+            <Route path="product">
+              <Route index element={<Product />} />
+            </Route>
+            <Route path="customerGroup">
+              <Route index element={<CustomerGroup />} />
+            </Route>
+            <Route path="customer">
+              <Route index element={<Customer />} />
+            </Route>
+            <Route path="warehouse">
+              <Route index element={<Warehouse />} />
+            </Route>
+            <Route path="businessReport">
+              <Route index element={<BusinessReport />} />
+            </Route>
+            <Route path="systemReport">
+              <Route index element={<SystemReport />} />
+            </Route>
+            <Route path="forgotPassword" exact element={<ForgotPassword />} />
+            <Route path="changePassword" exact element={<ChangePassword />} />
+
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
