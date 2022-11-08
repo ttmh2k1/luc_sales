@@ -22,7 +22,7 @@ const RoleComponent = () => {
 
   const actionColumn = [
     {
-      fied: 'action',
+      field: 'action',
       headerName: 'Action',
       width: 100,
       align: 'center',

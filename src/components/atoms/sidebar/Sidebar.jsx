@@ -33,7 +33,7 @@ const Sidebar = () => {
             style={{
               maxWidth: '100%',
               width: '20rem',
-              height: '6.4rem',
+              height: '6rem',
             }}
           />
         </Link>

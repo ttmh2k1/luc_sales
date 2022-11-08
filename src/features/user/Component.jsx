@@ -14,8 +14,9 @@ const UserComponent = () => {
   useEffect(() => {
     const handleGetUser = async () => {
       const resp = await getUsers()
-      const data = resp?.data?.data
-      setUsers(data)
+      const le = resp?.data?.data
+      setUsers(le)
+      console.log('🚀 ~ file: Component.jsx ~ line 19 ~ handleGetUser ~ le', le)
     }
     handleGetUser()
   }, [])
