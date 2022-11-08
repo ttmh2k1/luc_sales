@@ -1,41 +1,43 @@
-import React from "react";
-import logo from "../../../commons/assets/logo.png";
-import {
-  ButtonLogin,
-  CheckboxRemember,
-  LoginStyles,
-} from "../../../styles/features/loginStyles";
-import { LoginService } from "../../../apis/login";
-import { useNavigate } from "react-router-dom";
+import React from 'react'
+import logo from '../../../commons/assets/logo.png'
+import { ButtonLogin, CheckboxRemember, LoginStyles } from '../../../styles/features/loginStyles'
+import { LoginService } from '../../../apis/loginApi'
+import { useNavigate } from 'react-router-dom'
 
 function LoginSystemComponent() {
-  const classes = LoginStyles();
-  const navigate = useNavigate();
-
+  const classes = LoginStyles()
+  const navigate = useNavigate()
+  // useEffect(()=>{
+  //   const token = localStorage.getItem('token')
+  //   if(token){
+  //     navigate("/");
+  //   }
+  // },[])
+  // Vô login, Kiểm token có chưa, có thì tự đăng nhập, null thì sẽ hiện ra login
   const handleLogin = async () => {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById('username').value
+    const password = document.getElementById('password').value
     try {
-      await LoginService.login(username, password).then((response) => {
-        if (response.token) {
-          navigate("/");
-        } else {
-          alert(response.message);
-        }
-      });
-    } catch (e) {}
-  };
+      const resp = await LoginService.login(username, password)
+      if (resp?.token) {
+        localStorage.setItem('token', resp?.token)
+        navigate('/')
+      }
+    } catch (e) {
+      throw new Error(e.message)
+    }
+  }
 
   return (
     <div className={classes.root}>
-      <div style={{ width: "100%", textAlign: "center" }}>
+      <div style={{ width: '100%', textAlign: 'center' }}>
         <img
           src={logo}
           alt="logo"
           style={{
-            maxWidth: "100%",
-            height: "auto",
-            marginTop: "4rem",
+            maxWidth: '100%',
+            height: 'auto',
+            marginTop: '4rem',
           }}
         />
       </div>
@@ -51,21 +53,19 @@ function LoginSystemComponent() {
         </label>
         <input className={classes.inputText} type="password" id="password" />
         <div className={classes.optionLogin}>
-          <span style={{ display: "flex", alignItems: "center" }}>
+          <span style={{ display: 'flex', alignItems: 'center' }}>
             <CheckboxRemember color="default" />
             <label>Remember password</label>
           </span>
           <span>
-            <label style={{ textDecorationLine: "underline" }}>
-              Forget password?
-            </label>
+            <label style={{ textDecorationLine: 'underline' }}>Forget password?</label>
           </span>
         </div>
         <ButtonLogin onClick={() => handleLogin()}>SIGN IN</ButtonLogin>
       </form>
       <div className={classes.bottomSide}></div>
     </div>
-  );
+  )
 }
 
-export default LoginSystemComponent;
+export default LoginSystemComponent

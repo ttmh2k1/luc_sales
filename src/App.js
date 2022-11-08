@@ -24,21 +24,6 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" exact element={<Home />} />
-          <Route path="/login" exact element={<LoginSystem />} />
-          <Route path="/forgotPassword" exact element={<ForgotPassword />} />
-          <Route path="/user" exact element={<User />} />
-          <Route path="/role" exact element={<Role />} />
-          <Route path="/logSystem" exact element={<LogSystem />} />
-          <Route path="/order" exact element={<Order />} />
-          <Route path="/productGroup" exact element={<ProductGroup />} />
-          <Route path="/product" exact element={<Product />} />
-          <Route path="/customerGroup" exact element={<CustomerGroup />} />
-          <Route path="/customer" exact element={<Customer />} />
-          <Route path="/warehouse" exact element={<Warehouse />} />
-          <Route path="/businessReport" exact element={<BusinessReport />} />
-          <Route path="/systemReport" exact element={<SystemReport />} />
-          <Route path="/changePassword" exact element={<ChangePassword />} /> */}
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="login" element={<LoginSystem />} />
