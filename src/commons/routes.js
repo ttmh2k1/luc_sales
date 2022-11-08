@@ -7,6 +7,7 @@ export const COMMON_ROUTE = {
 export const SETTING_ROUTE = {
     user: {
         index: '/user',
+        view: '/user/view',
     },
     role: {
         index: '/role',
