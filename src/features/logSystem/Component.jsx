@@ -15,7 +15,6 @@ const LogSystemComponent = () => {
       const resp = await getLogs()
       const list = resp?.data?.data
       setLogs(list)
-      console.log('🚀 ~ file: Component.jsx ~ line 20 ~ handleGetLogs ~ list', list)
     }
     handleGetLogs()
   }, [])
@@ -61,10 +60,10 @@ const LogSystemComponent = () => {
   const logsContent = logs.map((item, index) => {
     return {
       stt: index + 1,
-      id: item.id,
-      date: item.date,
-      logType: item.logType,
-      content: item.content,
+      id: item?.id,
+      date: item?.date,
+      logType: item?.logType,
+      content: item?.content,
     }
   })
 

@@ -4,11 +4,13 @@
   .viewContainer {
     flex: 6;
     background-color: #eee;
+
     .body {
       background-color: #955b36;
       padding: 1.2rem;
       margin: 2rem;
-      border-radius: 0.4rem;
+      border-radius: 0.8rem;
+
       .form {
         display: flex;
         flex-direction: column;

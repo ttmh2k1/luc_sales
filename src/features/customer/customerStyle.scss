@@ -1,10 +1,75 @@
 .customer {
-    display: flex;
-    width: 100%;
-  
-    .customerContainer {
-      flex: 6;
-      background-color: #eee;
+  display: flex;
+  width: 100%;
+
+  .customerContainer {
+    flex: 6;
+    background-color: #eee;
+
+    .body {
+      background-color: #955b36;
+      padding: 1.2rem;
+      margin: 2rem;
+      border-radius: 0.8rem;
+
+      .template {
+        .title {
+          display: flex;
+          color: #707070;
+          background-color: #fff;
+          padding: 1.6rem;
+          border-radius: 0.4rem;
+        }
+
+        .datatable {
+          margin-top: 0.8rem;
+          height: 64rem;
+
+          .cellAction {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+
+            .viewButton {
+              display: flex;
+              align-items: center;
+              padding: 0.4rem;
+              border-radius: 0.4rem;
+              background-color: olivedrab;
+              color: white;
+              cursor: pointer;
+            }
+            .updateButton {
+              display: flex;
+              align-items: center;
+              padding: 0.4rem;
+              border-radius: 0.4rem;
+              background-color: cadetblue;
+              color: white;
+              cursor: pointer;
+            }
+            .disableButton {
+              display: flex;
+              align-items: center;
+              padding: 0.4rem;
+              border-radius: 0.4rem;
+              background-color: darksalmon;
+              color: white;
+              cursor: pointer;
+            }
+            .deleteButton {
+              display: flex;
+              align-items: center;
+              padding: 0.4rem;
+              border-radius: 0.4rem;
+              background-color: red;
+              color: white;
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
   }
-  
+}
