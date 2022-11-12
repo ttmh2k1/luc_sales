@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DataGrid } from '@mui/x-data-grid'
+import { FaEye } from 'react-icons/fa'
 
 const UserComponent = () => {
   const [users, setUsers] = useState([])
@@ -14,9 +15,8 @@ const UserComponent = () => {
   useEffect(() => {
     const handleGetUser = async () => {
       const resp = await getUsers()
-      const le = resp?.data?.data
-      setUsers(le)
-      console.log('🚀 ~ file: Component.jsx ~ line 19 ~ handleGetUser ~ le', le)
+      const list = resp?.data?.data
+      setUsers(list)
     }
     handleGetUser()
   }, [])
@@ -31,13 +31,16 @@ const UserComponent = () => {
         return (
           <div className="cellAction">
             <Link to={`/user/${props.id}`} style={{ textDecoration: 'none' }}>
-              <div className="viewButton">View</div>
+              <div className="viewButton">
+                <FaEye />
+              </div>
             </Link>
           </div>
         )
       },
     },
   ]
+
   const userHeader = [
     {
       field: 'stt',
@@ -48,7 +51,7 @@ const UserComponent = () => {
     },
     {
       field: 'id',
-      headerName: 'User Code',
+      headerName: 'User ID',
       width: 120,
       align: 'center',
       headerAlign: 'center',
@@ -102,13 +105,13 @@ const UserComponent = () => {
   const userContent = users.map((item, index) => {
     return {
       stt: index + 1,
-      id: item.id,
-      username: item.username,
-      fullname: item.fullname,
-      role: item.role.name,
-      email: item.email,
-      phone: item.phone,
-      status: item.status,
+      id: item?.id,
+      username: item?.username,
+      fullname: item?.fullname,
+      role: item?.role.name,
+      email: item?.email,
+      phone: item?.phone,
+      status: item?.status,
     }
   })
 

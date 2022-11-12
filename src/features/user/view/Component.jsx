@@ -14,7 +14,6 @@ const UserComponent = () => {
   useEffect(() => {
     const handleGetUser = async () => {
       const resp = await getUserById(userId)
-      // console.log('🚀 ~ file: Datatable.jsx ~ line 15 ~ handleGetUser ~ resp', resp?.data?.data)
       const data = resp?.data?.data
       setUser(data)
     }

@@ -2,8 +2,8 @@ import './datatable.scss'
 import { DataGrid } from '@mui/x-data-grid'
 import { userColumns, userRows } from '../../../dataTableSource'
 import { Link } from 'react-router-dom'
-import { style } from '@mui/system'
 import styled from 'styled-components'
+import { FaEye } from 'react-icons/fa'
 
 const Datatable = () => {
   const actionColumn = [
@@ -16,7 +16,9 @@ const Datatable = () => {
         return (
           <div className="cellAction">
             <Link to="/user/test" style={{ textDecoration: 'none' }}>
-              <div className="viewButton">View</div>
+              <div className="viewButton">
+                <FaEye />
+              </div>
             </Link>
           </div>
         )

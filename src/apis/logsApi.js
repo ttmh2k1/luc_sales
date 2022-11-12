@@ -1,7 +1,7 @@
 import api, { SERVICE } from './api';
 
 /**
- * Get list roles and view roles
+ * Get list logs and view logs
  * @param {*} req
  * @returns {Promise<import('axios').AxiosResponse<any>>}
  */
