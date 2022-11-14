@@ -71,7 +71,7 @@ const Sidebar = () => {
           <Link to="/productGroup" style={{ textDecoration: 'none' }}>
             <li>
               <FaBoxes className="icon" />
-              <span>Product Groups</span>
+              <span>Product groups</span>
             </li>
           </Link>
           <Link to="/product" style={{ textDecoration: 'none' }}>
@@ -83,7 +83,7 @@ const Sidebar = () => {
           <Link to="/customerGroup" style={{ textDecoration: 'none' }}>
             <li>
               <FaUserFriends className="icon" />
-              <span>Customer Groups</span>
+              <span>Customer groups</span>
             </li>
           </Link>
           <Link to="/customer" style={{ textDecoration: 'none' }}>
@@ -102,13 +102,13 @@ const Sidebar = () => {
           <Link to="/businessReport" style={{ textDecoration: 'none' }}>
             <li>
               <FaChartBar className="icon" />
-              <span>Business Report</span>
+              <span>Business report</span>
             </li>
           </Link>
           <Link to="/systemReport" style={{ textDecoration: 'none' }}>
             <li>
               <FaChartPie className="icon" />
-              <span>System Report</span>
+              <span>System report</span>
             </li>
           </Link>
           <p className="title">USER</p>

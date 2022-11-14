@@ -10,3 +10,11 @@ export function getListProductGroup(req) {
     const queries = combineQueriesUrl({ ...req });
     return api.GET(`${SERVICE}/api/admin/product-category${queries}`);
 }
+
+export function getProductGroup(id) {
+    return api.GET(`${SERVICE}/api/admin/product-category/${id}`);
+}
+
+export function updateProductGroup(id, params) {
+    return api.PUT(`${SERVICE}/api/admin/product-category/${id}`, { status: params })
+}

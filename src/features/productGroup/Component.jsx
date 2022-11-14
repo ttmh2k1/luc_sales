@@ -25,7 +25,7 @@ const ProductGroupComponent = () => {
     {
       field: 'stt',
       headerName: 'No',
-      width: 100,
+      width: 80,
       align: 'center',
       headerAlign: 'center',
     },
@@ -39,8 +39,15 @@ const ProductGroupComponent = () => {
     {
       field: 'name',
       headerName: 'Product group name',
-      width: 500,
+      width: 400,
       align: 'left',
+      headerAlign: 'center',
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 200,
+      align: 'center',
       headerAlign: 'center',
     },
   ]
@@ -50,6 +57,7 @@ const ProductGroupComponent = () => {
       stt: index + 1,
       id: item?.id,
       name: item?.name,
+      status: item?.status,
     }
   })
 
@@ -72,12 +80,12 @@ const ProductGroupComponent = () => {
                 <FaPen />
               </div>
             </Link>
-            <div className="disableButton">
+            {/* <div className="disableButton">
               <FaLock />
             </div>
             <div className="deleteButton">
               <FaTrashAlt />
-            </div>
+            </div> */}
           </div>
         )
       },

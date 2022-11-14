@@ -6,11 +6,11 @@ import api, { SERVICE } from './api';
  * @param {*} req
  * @returns {Promise<import('axios').AxiosResponse<any>>}
  */
-export function getUsers(req) {
+export function getListUsers(req) {
     const queries = combineQueriesUrl({ ...req });
     return api.GET(`${SERVICE}/api/admin/user-manage${queries}`);
 }
 
-export function getUserById(id) {
+export function getUser(id) {
     return api.GET(`${SERVICE}/api/admin/user-manage/${id}`);
 }

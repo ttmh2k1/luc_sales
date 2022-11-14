@@ -112,12 +112,12 @@ const CustomerComponent = () => {
                 <FaPen />
               </div>
             </Link>
-            <div className="disableButton">
+            {/* <div className="disableButton">
               <FaLock />
             </div>
             <div className="deleteButton">
               <FaTrashAlt />
-            </div>
+            </div> */}
           </div>
         )
       },

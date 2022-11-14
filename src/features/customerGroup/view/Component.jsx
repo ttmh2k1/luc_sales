@@ -6,19 +6,19 @@ import Sidebar from '../../../components/atoms/sidebar/Sidebar'
 import { styled } from '@material-ui/styles'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getUser } from '../../../apis/userApi'
+import { getCustomerGroup } from '../../../apis/customerGroupApi'
 
-const UserComponent = () => {
-  const [user, setUser] = useState()
-  const { userId } = useParams()
+const CustomerGroupComponent = () => {
+  const [customerGroup, setCustomerGroup] = useState()
+  const { customerGroupId } = useParams()
   useEffect(() => {
-    const handleGetUser = async () => {
-      const resp = await getUser(userId)
+    const handleGetCustomerGroup = async () => {
+      const resp = await getCustomerGroup(customerGroupId)
       const data = resp?.data?.data
-      setUser(data)
+      setCustomerGroup(data)
     }
-    handleGetUser()
-  }, [userId])
+    handleGetCustomerGroup()
+  }, [customerGroupId])
 
   return (
     <div className="view">
@@ -27,45 +27,43 @@ const UserComponent = () => {
         <Navbar />
         <div className="body">
           <ContentBox.Container className="viewForm">
-            <ContentBox.Title title="View user information" />
+            <ContentBox.Title title="View customer group information" />
             <ContentBox.Body>
               <div style={{ width: '100%', padding: '0.4rem' }}>
                 <Grid container spacing={0} alignItems="flex-start" alignContent="space-around">
                   <div className="form">
-                    <label className="title" for="usercode">
-                      User code
+                    <label className="title" for="customerGroupCode">
+                      Customer group code
                     </label>
-                    <Item disabled className="textField" id="usercode" value={user?.id} />
+                    <Item
+                      disabled
+                      className="textField"
+                      id="customerGroupCode"
+                      value={customerGroup?.id}
+                    />
                   </div>
                   <div className="form">
                     <label className="title" for="name">
-                      Full name
+                      Customer group name
                     </label>
-                    <Item disabled className="textField" id="name" value={user?.fullname} />
+                    <Item disabled className="textField" id="name" value={customerGroup?.name} />
                   </div>
                   <div className="form">
-                    <label className="title" for="role">
-                      Role
+                    <label className="title" for="customerGroupDiscount">
+                      Customer group discount
                     </label>
-                    <Item disabled className="textField" id="role" value={user?.role?.name} />
-                  </div>
-                  <div className="form">
-                    <label className="title" for="email">
-                      Email
-                    </label>
-                    <Item disabled className="textField" id="email" value={user?.email} />
-                  </div>
-                  <div className="form">
-                    <label className="title" for="phone">
-                      Phone
-                    </label>
-                    <Item disabled className="textField" id="phone" value={user?.phone} />
+                    <Item
+                      disabled
+                      className="textField"
+                      id="customerGroupDiscount"
+                      value={customerGroup?.discountRate}
+                    />
                   </div>
                 </Grid>
               </div>
             </ContentBox.Body>
             <ContentBox.Footer isGoBack>
-              <Link to="/user" style={{ textDecoration: 'none' }} />
+              <Link to="/customerGroup" style={{ textDecoration: 'none' }} />
             </ContentBox.Footer>
           </ContentBox.Container>
         </div>
@@ -79,7 +77,8 @@ const Item = styled(TextField)({
     height: '0.4rem',
     fontSize: '1.4rem',
     WebkitTextFillColor: '#717171',
+    backgroundColor: '#f0f0f0',
   },
 })
 
-export default UserComponent
+export default CustomerGroupComponent

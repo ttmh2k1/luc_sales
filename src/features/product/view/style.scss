@@ -1,0 +1,75 @@
+.view {
+  display: flex;
+  width: 100%;
+  .viewContainer {
+    flex: 6;
+    background-color: #eee;
+
+    .body {
+      background-color: #955b36;
+      padding: 1.2rem;
+      margin: 2rem;
+      border-radius: 0.8rem;
+
+      .level0 {
+        .levelHeader {
+          display: flex;
+          color: #955b36;
+          font-weight: bold;
+          margin-left: 1.2rem;
+          margin-top: 1.2rem;
+        }
+      }
+
+      .groupParent {
+        margin: 1.2rem 2.4rem;
+        .MuiAccordionSummary-root {
+          min-height: 4rem;
+        }
+        .headerGroup {
+          background-color: antiquewhite;
+          height: 2rem;
+          .MuiAccordionSummary-content {
+            margin: 0;
+          }
+          .titleGroup {
+            color: #955b36;
+            font-size: 1.6rem;
+            font-weight: bold;
+          }
+        }
+        .MuiAccordionDetails-root {
+          padding: 0;
+        }
+        .group {
+          margin: 1.2rem 2.4rem;
+          .level {
+            display: flex;
+            flex-direction: row;
+
+            .form {
+              display: flex;
+              flex-direction: column;
+              width: 10%;
+              min-width: 10vw;
+              max-width: 100%;
+
+              .title {
+                color: #955b36;
+                font-size: 1.6rem;
+                font-weight: bold;
+                margin-bottom: 0.4rem;
+              }
+
+              .textField {
+                background-color: #f0f0f0;
+                border-radius: 0.4rem;
+                font-size: 1.6rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

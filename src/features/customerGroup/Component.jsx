@@ -3,7 +3,7 @@ import Navbar from '../../components/atoms/navbar/Navbar'
 import Sidebar from '../../components/atoms/sidebar/Sidebar'
 import { DataGrid } from '@mui/x-data-grid'
 import ContentBox from '../../components/atoms/ContentBox'
-import { FaEye, FaLock, FaPen, FaTrashAlt } from 'react-icons/fa'
+import { FaEye, FaPen } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getListCustomerGroup } from '../../apis/customerGroupApi'
@@ -46,7 +46,7 @@ const CustomerGroupComponent = () => {
     {
       field: 'discountRate',
       headerName: 'Customer group discount',
-      width: 200,
+      width: 250,
       align: 'center',
       headerAlign: 'center',
     },
@@ -57,7 +57,7 @@ const CustomerGroupComponent = () => {
       stt: index + 1,
       id: item?.id,
       name: item?.name,
-      discountRate: item?.discountRate,
+      discountRate: item?.discountRate * 100 + '%',
     }
   })
 
@@ -80,12 +80,6 @@ const CustomerGroupComponent = () => {
                 <FaPen />
               </div>
             </Link>
-            <div className="disableButton">
-              <FaLock />
-            </div>
-            <div className="deleteButton">
-              <FaTrashAlt />
-            </div>
           </div>
         )
       },
