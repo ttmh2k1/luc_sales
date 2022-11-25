@@ -61,7 +61,7 @@ const FooterComponent = ({ children, isGoBack }) => {
           onClick={() => navigate(-1)}
           style={{ color: '#955b36', height: '3.2rem', fontSize: "1.6rem" }}
         >
-          Quay lại
+          Back
         </Button>
       )}
     </>

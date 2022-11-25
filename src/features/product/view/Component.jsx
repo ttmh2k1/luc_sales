@@ -38,47 +38,40 @@ const ProductComponent = () => {
             <ContentBox.Title title="View product information" />
             <ContentBox.Body>
               <div style={{ width: '100%', padding: '0.4rem' }}>
-                {product?.category?.idParent === null && product?.variations && (
-                  <div className="level0">
-                    <label className="levelHeader">{product?.name}</label>
-                    <Grid container spacing={0} alignItems="flex-start" alignContent="space-around">
-                      <div className="form">
-                        <label className="title" for="productCode">
-                          Product ID
-                        </label>
-                        <Item disabled className="textField" id="productCode" value={product?.id} />
-                      </div>
-                      <div className="form">
-                        <label className="title" for="name">
-                          Product name
-                        </label>
-                        <Item
-                          disabled
-                          className="textField"
-                          id="productName"
-                          value={product?.name}
-                        />
-                      </div>
-                      <div className="form">
-                        <label className="title" for="product">
-                          Product group
-                        </label>
-                        <Item
-                          disabled
-                          className="textField"
-                          id="product"
-                          value={product?.category?.name}
-                        />
-                      </div>
-                      <div className="form">
-                        <label className="title" for="status">
-                          Status
-                        </label>
-                        <Item disabled className="textField" id="status" value={product?.status} />
-                      </div>
-                    </Grid>
-                  </div>
-                )}
+                <div className="level0">
+                  <label className="levelHeader">{product?.name}</label>
+                  <Grid container spacing={0} alignItems="flex-start" alignContent="space-around">
+                    <div className="form">
+                      <label className="title" for="productCode">
+                        Product ID
+                      </label>
+                      <Item disabled className="textField" id="productCode" value={product?.id} />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="name">
+                        Product name
+                      </label>
+                      <Item disabled className="textField" id="productName" value={product?.name} />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="product">
+                        Product group
+                      </label>
+                      <Item
+                        disabled
+                        className="textField"
+                        id="product"
+                        value={product?.category?.name}
+                      />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="status">
+                        Status
+                      </label>
+                      <Item disabled className="textField" id="status" value={product?.status} />
+                    </div>
+                  </Grid>
+                </div>
                 {product?.tierVariations &&
                   product?.tierVariations.map((item) => (
                     <div>

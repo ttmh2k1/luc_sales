@@ -8,11 +8,16 @@ import User from "./pages/user/index"
 import ViewUser from "./pages/user/view/viewUser"
 import Role from "./pages/role/index"
 import LogSystem from "./pages/logSystem/index"
+import Delivery from "./pages/delivery/index"
+import ViewDelivery from "./pages/delivery/view/viewDelivery"
 import Order from "./pages/order/index"
+import ViewOrder from "./pages/order/view/viewOrder"
+import ApproveOrder from "./pages/order/approve/approveOrder"
 import ProductGroup from "./pages/productGroup/index"
 import ViewProductGroup from "./pages/productGroup/view/viewProductGroup"
 import UpdateProductGroup from "./pages/productGroup/update/updateProductGroup"
 import Product from "./pages/product/index"
+import CreateProduct from "./pages/product/create/createProduct"
 import ViewProduct from "./pages/product/view/viewProduct"
 import UpdateProduct from "./pages/product/update/updateProduct"
 import CustomerGroup from "./pages/customerGroup/index"
@@ -47,6 +52,18 @@ const App = () => {
             </Route>
             <Route path="order">
               <Route index element={<Order />} />
+              <Route path="view">
+                <Route path=":orderId" element={<ViewOrder />} />
+              </Route>
+              <Route path="approve">
+                <Route path=":orderId" element={<ApproveOrder />} />
+              </Route>
+            </Route>
+            <Route path="delivery">
+              <Route index element={<Delivery />} />
+              <Route path="view">
+                <Route path=":orderId" element={<ViewDelivery />} />
+              </Route>
             </Route>
             <Route path="productGroup">
               <Route index element={<ProductGroup />} />
@@ -59,6 +76,7 @@ const App = () => {
             </Route>
             <Route path="product">
               <Route index element={<Product />} />
+              <Route path="create" element={<CreateProduct />} />
               <Route path="view">
                 <Route path=":productId" element={<ViewProduct />} />
               </Route>

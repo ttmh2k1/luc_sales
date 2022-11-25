@@ -3,11 +3,9 @@ import Navbar from '../../components/atoms/navbar/Navbar'
 import Sidebar from '../../components/atoms/sidebar/Sidebar'
 import { useEffect, useState } from 'react'
 import { getRoles } from '../../apis/roleApi'
-import { Link } from 'react-router-dom'
 import { DataGrid } from '@mui/x-data-grid'
 import styled from 'styled-components'
 import ContentBox from '../../components/atoms/ContentBox'
-import { useMutation } from 'react-query'
 
 const RoleComponent = () => {
   const [roles, setRoles] = useState()
@@ -19,7 +17,7 @@ const RoleComponent = () => {
       setRoles(data)
     }
     handleGetRole()
-  }, [roles])
+  }, [])
 
   const roleHeader = [
     {

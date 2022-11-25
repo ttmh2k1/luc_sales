@@ -111,7 +111,8 @@ const UserComponent = () => {
       role: item?.role.name,
       email: item?.email,
       phone: item?.phone,
-      status: item?.status,
+      status:
+        item?.status === 'ACTIVE' ? 'Active' : item?.status === 'BANNED' ? 'Banned' : 'Wait banned',
     }
   })
 

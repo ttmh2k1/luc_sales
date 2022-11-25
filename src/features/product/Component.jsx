@@ -2,15 +2,17 @@ import './productStyle.scss'
 import Navbar from '../../components/atoms/navbar/Navbar'
 import Sidebar from '../../components/atoms/sidebar/Sidebar'
 import { DataGrid } from '@mui/x-data-grid'
-import { FaEye, FaLock, FaPen, FaTrashAlt } from 'react-icons/fa'
+import { FaEye, FaLock, FaPen, FaPlusCircle, FaTrashAlt } from 'react-icons/fa'
 import ContentBox from '../../components/atoms/ContentBox'
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { getListProduct } from '../../apis/productApi'
+import { Button } from '@mui/material'
 
 const ProductComponent = () => {
   const [listProduct, setListProduct] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleListProduct = async () => {
@@ -88,12 +90,12 @@ const ProductComponent = () => {
                 <FaPen />
               </div>
             </Link>
-            <div className="disableButton">
+            {/* <div className="disableButton">
               <FaLock />
             </div>
             <div className="deleteButton">
               <FaTrashAlt />
-            </div>
+            </div> */}
           </div>
         )
       },
@@ -106,7 +108,16 @@ const ProductComponent = () => {
       <div className="productContainer">
         <Navbar />
         <div className="body">
-          <ContentBox.Title title="List product" />
+          <div className="header">
+            <ContentBox.Title title="List product" />
+            {/* <Button
+              className="createButton"
+              startIcon={<FaPlusCircle />}
+              onClick={() => navigate('/product/create')}
+            >
+              New
+            </Button> */}
+          </div>
           <div className="template">
             <div className="datatable">
               <Tab

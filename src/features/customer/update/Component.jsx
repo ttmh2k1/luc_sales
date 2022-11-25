@@ -10,19 +10,8 @@ import { getCustomer } from '../../../apis/customerApi'
 import { toast } from 'react-toastify'
 import { updateCustomer } from '../../../apis/customerApi'
 import { FaSave } from 'react-icons/fa'
-import { useForm } from 'react-hook-form'
 
 const CustomerComponent = () => {
-  // const {
-  //   control,
-  //   formState: { errors },
-  // } = useForm({
-  //   mode: 'onChange',
-  //   defaultValues: {
-  //     status: "ACTIVE",
-  //   },
-  // })
-
   const [customer, setCustomer] = useState()
   const params = useParams()
   const customerId = params.customerId
@@ -149,7 +138,7 @@ const CustomerComponent = () => {
             </ContentBox.Body>
             <ContentBox.Footer isGoBack>
               <Button className="saveButton" startIcon={<FaSave />} onClick={(e) => handleSave()}>
-                Lưu
+                Save
               </Button>
               <Link to="/customer" style={{ textDecoration: 'none' }} />
             </ContentBox.Footer>

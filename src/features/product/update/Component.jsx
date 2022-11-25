@@ -54,16 +54,15 @@ const ProductComponent = () => {
       idCategory: product?.category?.id,
       status: product?.status,
     }
-    var o = new FormData()
+    var transform = new FormData()
     const json = JSON.stringify(info)
     const blob = new Blob([json], {
       type: 'application/json',
     })
 
-    // o.append('avatar', document.getElementById('image').files[0])
-    o.append('info', blob)
+    transform.append('info', blob)
     try {
-      await updateProduct(productId, o)
+      await updateProduct(productId, transform)
       toast.success('Update successful!', style)
       setTimeout(() => {
         navigate('/product')
@@ -83,64 +82,68 @@ const ProductComponent = () => {
             <ContentBox.Title title="Update product information" />
             <ContentBox.Body>
               <div style={{ width: '100%', padding: '0.4rem' }}>
-                {product?.category?.idParent === null && product?.variations && (
-                  <div className="level0">
-                    <label className="levelHeader">{product?.name}</label>
-                    <Grid container spacing={0} alignItems="flex-start" alignContent="space-around">
-                      <div className="form">
-                        <label className="title" for="productCode">
-                          Product ID
-                        </label>
-                        <Item disabled className="textField" id="productCode" value={product?.id} />
-                      </div>
-                      <div className="form">
-                        <label className="title" for="name">
-                          Product name
-                        </label>
-                        <Item
-                          className="textField"
-                          id="productName"
-                          value={product?.name}
-                          onChange={(e) =>
-                            setProduct((state) => {
-                              return { ...state, name: e.target.value }
-                            })
-                          }
-                        />
-                      </div>
-                      <div className="form">
-                        <label className="title" for="product">
-                          Product group
-                        </label>
-                        <Item
-                          disabled
-                          className="textField"
-                          id="product"
-                          value={product?.category?.name}
-                        />
-                      </div>
-                      <div className="form">
-                        <label className="title" for="status">
-                          Status
-                        </label>
-                        <ItemSelect
-                          className="select"
-                          id="status"
-                          value={product?.status}
-                          onChange={(e) =>
-                            setProduct((state) => ({ ...state, status: e.target.value }))
-                          }
-                        >
-                          {arrayStatus?.map((item, index) => (
-                            <MenuItem key={index} value={item?.value}>
-                              {item?.name}
-                            </MenuItem>
-                          ))}
-                        </ItemSelect>
-                      </div>
-                    </Grid>
-                  </div>
-                )}
+                <div className="level0">
+                  <label className="levelHeader">{product?.name}</label>
+                  <Grid
+                    className="infor"
+                    container
+                    spacing={0}
+                    alignItems="flex-start"
+                    alignContent="space-around"
+                  >
+                    <div className="form">
+                      <label className="title" for="productCode">
+                        Product ID
+                      </label>
+                      <Item disabled className="textField" id="productCode" value={product?.id} />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="name">
+                        Product name
+                      </label>
+                      <Item
+                        className="textField"
+                        id="productName"
+                        value={product?.name}
+                        onChange={(e) =>
+                          setProduct((state) => {
+                            return { ...state, name: e.target.value }
+                          })
+                        }
+                      />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="product">
+                        Product group
+                      </label>
+                      <Item
+                        disabled
+                        className="textField"
+                        id="product"
+                        value={product?.category?.name}
+                      />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="status">
+                        Status
+                      </label>
+                      <ItemSelect
+                        className="select"
+                        id="status"
+                        value={product?.status}
+                        onChange={(e) =>
+                          setProduct((state) => ({ ...state, status: e.target.value }))
+                        }
+                      >
+                        {arrayStatus?.map((item, index) => (
+                          <MenuItem key={index} value={item?.value}>
+                            {item?.name}
+                          </MenuItem>
+                        ))}
+                      </ItemSelect>
+                    </div>
+                  </Grid>
+                </div>
                 {product?.tierVariations &&
                   product?.tierVariations.map((item) => (
                     <div>
@@ -287,7 +290,7 @@ const ProductComponent = () => {
             </ContentBox.Body>
             <ContentBox.Footer isGoBack>
               <Button className="saveButton" startIcon={<FaSave />} onClick={(e) => handleSave()}>
-                Lưu
+                Save
               </Button>
               <Link to="/customerGroup" style={{ textDecoration: 'none' }} />
             </ContentBox.Footer>

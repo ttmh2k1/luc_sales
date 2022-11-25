@@ -233,7 +233,7 @@ const ProductGroupComponent = () => {
             </ContentBox.Body>
             <ContentBox.Footer isGoBack>
               <Button className="saveButton" startIcon={<FaSave />} onClick={(e) => handleSave()}>
-                Lưu
+                Save
               </Button>
               <Link to="/customerGroup" style={{ textDecoration: 'none' }} />
             </ContentBox.Footer>

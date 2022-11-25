@@ -5,6 +5,6 @@ import api, { SERVICE } from './api';
  * @param {*} req
  * @returns {Promise<import('axios').AxiosResponse<any>>}
  */
-export function getLogs() {
-    return api.GET(`${SERVICE}/api/admin/log?size=1000`);
+export function statisticToday() {
+    return api.GET(`${SERVICE}/api/admin/statistic/today`);
 }

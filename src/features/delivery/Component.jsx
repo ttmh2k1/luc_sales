@@ -3,22 +3,24 @@ import Navbar from '../../components/atoms/navbar/Navbar'
 import Sidebar from '../../components/atoms/sidebar/Sidebar'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaCheck, FaEye, FaRegTimesCircle } from 'react-icons/fa'
+import { FaCheck, FaEye } from 'react-icons/fa'
 import { DataGrid } from '@mui/x-data-grid'
 import ContentBox from '../../components/atoms/ContentBox'
 import styled from 'styled-components'
-import { getListOrder, updateOrder } from '../../apis/orderApi'
+import { listDelivery, listDelivery1, updateOrder } from '../../apis/orderApi'
 import { toast } from 'react-toastify'
 
-const OrderComponent = () => {
+const DeliveryComponent = () => {
   const [listOrder, setListOrder] = useState([])
   useEffect(() => {
-    const handleListOrder = async () => {
-      const resp = await getListOrder()
+    const handleListDelivery = async () => {
+      const resp = await listDelivery()
+      const resp1 = await listDelivery1()
       const list = resp?.data?.data
-      setListOrder(list)
+      const list1 = resp1?.data?.data
+      setListOrder([...list, ...list1])
     }
-    handleListOrder()
+    handleListDelivery()
   }, [])
 
   const style = {
@@ -32,15 +34,27 @@ const OrderComponent = () => {
     theme: 'colored',
   }
 
-  const handleCancel = async (id) => {
+  const handleApprove = async (id) => {
     try {
-      await updateOrder(id, 'CANCELLED')
-      toast.success('Cancel successful!', style)
+      await updateOrder(id, 'DELIVERING')
+      toast.success('Approve successful!', style)
       setTimeout(() => {
         window.location.reload()
       }, 2000)
     } catch (error) {
-      toast.error('Cancel failed!', style)
+      toast.error('Approve failed!', style)
+    }
+  }
+
+  const handleApprove1 = async (id) => {
+    try {
+      await updateOrder(id, 'DELIVERED')
+      toast.success('Approve successful!', style)
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000)
+    } catch (error) {
+      toast.error('Approve failed!', style)
     }
   }
 
@@ -69,7 +83,7 @@ const OrderComponent = () => {
     {
       field: 'customerName',
       headerName: 'Customer name',
-      width: 150,
+      width: 200,
       align: 'left',
       headerAlign: 'center',
     },
@@ -119,32 +133,26 @@ const OrderComponent = () => {
   const action = [
     {
       headerName: 'Action',
-      width: 150,
+      width: 100,
       align: 'left',
       headerAlign: 'center',
       renderCell: (props) => {
         return (
           <div className="cellAction">
-            <Link to={`/order/view/${props.id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/delivery/view/${props.id}`} style={{ textDecoration: 'none' }}>
               <div className="viewButton">
                 <FaEye />
               </div>
             </Link>
-            {localStorage.getItem('role') !== 'SHIPPER' && (
-              <>
-                <Link to={`/order/approve/${props.id}`} style={{ textDecoration: 'none' }}>
-                  <div className="approveButton">
-                    <FaCheck />
-                  </div>
-                </Link>
-                {props?.row?.status &&
-                  (props?.row?.status === 'WAIT_FOR_CONFIRM' ||
-                    props?.row?.status === 'WAIT_FOR_SEND') && (
-                    <div className="denyButton">
-                      <FaRegTimesCircle onClick={() => handleCancel(props.id)} />
-                    </div>
-                  )}
-              </>
+            {props?.row?.status && props?.row?.status === 'WAIT_FOR_SEND' && (
+              <div className="approveButton">
+                <FaCheck onClick={() => handleApprove(props.id)} />
+              </div>
+            )}
+            {props?.row?.status && props?.row?.status === 'DELIVERING' && (
+              <div className="approveButton">
+                <FaCheck onClick={() => handleApprove1(props.id)} />
+              </div>
             )}
           </div>
         )
@@ -153,12 +161,12 @@ const OrderComponent = () => {
   ]
 
   return (
-    <div className="order">
+    <div className="delivery">
       <Sidebar />
-      <div className="orderContainer">
+      <div className="deliveryContainer">
         <Navbar />
         <div className="body">
-          <ContentBox.Title title="List order" />
+          <ContentBox.Title title="List delivery" />
           <div className="template">
             <div className="datatable">
               <Tab
@@ -185,4 +193,4 @@ const Tab = styled(DataGrid)({
   },
 })
 
-export default OrderComponent
+export default DeliveryComponent
