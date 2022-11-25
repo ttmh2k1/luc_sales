@@ -6,14 +6,14 @@ import Sidebar from '../../../components/atoms/sidebar/Sidebar'
 import { styled } from '@material-ui/styles'
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getUserById } from '../../../apis/userApi'
+import { getUser } from '../../../apis/userApi'
 
 const UserComponent = () => {
   const [user, setUser] = useState()
   const { userId } = useParams()
   useEffect(() => {
     const handleGetUser = async () => {
-      const resp = await getUserById(userId)
+      const resp = await getUser(userId)
       const data = resp?.data?.data
       setUser(data)
     }
@@ -64,9 +64,9 @@ const UserComponent = () => {
                 </Grid>
               </div>
             </ContentBox.Body>
-            <Link to="/user" style={{ textDecoration: 'none' }}>
-              <ContentBox.Footer isGoBack />
-            </Link>
+            <ContentBox.Footer isGoBack>
+              <Link to="/user" style={{ textDecoration: 'none' }} />
+            </ContentBox.Footer>
           </ContentBox.Container>
         </div>
       </div>

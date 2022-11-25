@@ -3,15 +3,15 @@ import Navbar from '../../components/atoms/navbar/Navbar'
 import Sidebar from '../../components/atoms/sidebar/Sidebar'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaEye, FaLock, FaPen, FaTrashAlt } from 'react-icons/fa'
+import { FaCheck, FaEye, FaRegTimesCircle } from 'react-icons/fa'
 import { DataGrid } from '@mui/x-data-grid'
 import ContentBox from '../../components/atoms/ContentBox'
 import styled from 'styled-components'
-import { getListOrder } from '../../apis/orderApi'
+import { getListOrder, updateOrder } from '../../apis/orderApi'
+import { toast } from 'react-toastify'
 
 const OrderComponent = () => {
   const [listOrder, setListOrder] = useState([])
-
   useEffect(() => {
     const handleListOrder = async () => {
       const resp = await getListOrder()
@@ -20,6 +20,29 @@ const OrderComponent = () => {
     }
     handleListOrder()
   }, [])
+
+  const style = {
+    position: 'bottom-right',
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'colored',
+  }
+
+  const handleCancel = async (id) => {
+    try {
+      await updateOrder(id, 'CANCELLED')
+      toast.success('Cancel successful!', style)
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000)
+    } catch (error) {
+      toast.error('Cancel failed!', style)
+    }
+  }
 
   const header = [
     {
@@ -97,27 +120,32 @@ const OrderComponent = () => {
     {
       headerName: 'Action',
       width: 150,
-      align: 'center',
+      align: 'left',
       headerAlign: 'center',
       renderCell: (props) => {
         return (
           <div className="cellAction">
-            <Link to={`/customer/view/${props.id}`} style={{ textDecoration: 'none' }}>
+            <Link to={`/order/view/${props.id}`} style={{ textDecoration: 'none' }}>
               <div className="viewButton">
                 <FaEye />
               </div>
             </Link>
-            <Link to={`/customer/update/${props.id}`} style={{ textDecoration: 'none' }}>
-              <div className="updateButton">
-                <FaPen />
-              </div>
-            </Link>
-            <div className="disableButton">
-              <FaLock />
-            </div>
-            <div className="deleteButton">
-              <FaTrashAlt />
-            </div>
+            {localStorage.getItem('role') !== 'SHIPPER' && (
+              <>
+                <Link to={`/order/approve/${props.id}`} style={{ textDecoration: 'none' }}>
+                  <div className="approveButton">
+                    <FaCheck />
+                  </div>
+                </Link>
+                {props?.row?.status &&
+                  (props?.row?.status === 'WAIT_FOR_CONFIRM' ||
+                    props?.row?.status === 'WAIT_FOR_SEND') && (
+                    <div className="denyButton">
+                      <FaRegTimesCircle onClick={() => handleCancel(props.id)} />
+                    </div>
+                  )}
+              </>
+            )}
           </div>
         )
       },

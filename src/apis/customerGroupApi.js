@@ -10,3 +10,11 @@ export function getListCustomerGroup(req) {
     const queries = combineQueriesUrl({ ...req });
     return api.GET(`${SERVICE}/api/admin/buyer-rank${queries}`);
 }
+
+export function getCustomerGroup(id) {
+    return api.GET(`${SERVICE}/api/admin/buyer-rank/${id}`);
+}
+
+export function updateCustomerGroup(id, params) {
+    return api.PUT(`${SERVICE}/api/admin/buyer-rank/${id}`, { discountRate: params });
+}

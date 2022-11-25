@@ -1,53 +1,37 @@
-import "./chart.scss";
+import './chart.scss'
 import {
   LineChart,
   Line,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
   AreaChart,
   Area,
-} from "recharts";
-
-const data = [
-  {
-    name: "January",
-    Total: 1200,
-  },
-  {
-    name: "February",
-    Total: 2100,
-  },
-  {
-    name: "March",
-    Total: 800,
-  },
-  {
-    name: "April",
-    Total: 1600,
-  },
-  {
-    name: "May",
-    Total: 900,
-  },
-  {
-    name: "June",
-    Total: 1700,
-  },
-];
+} from 'recharts'
+import { getStatistic } from '../../../apis/statistic'
+import { useEffect, useState } from 'react'
 
 const Chart = () => {
+  const [statistic, setStatistic] = useState()
+  useEffect(() => {
+    const handleGetStatisticByDate = async () => {
+      const resp = await getStatistic()
+      const data = resp?.data?.data
+      setStatistic(data)
+    }
+    handleGetStatisticByDate()
+  }, [])
+
   return (
     <div className="chart">
-      <div className="title">Last 6 months (Revenue)</div>
+      <div className="title">Revenue in month</div>
       <ResponsiveContainer width="100%" aspect={2 / 1}>
         <AreaChart
           width={730}
-          height={250}
-          data={data}
+          height={150}
+          data={statistic}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
           <defs>
@@ -56,29 +40,21 @@ const Chart = () => {
               <stop offset="95%" stopColor="#aa7c5e" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="name" stroke="gray" />
-          {/* cot doc */}
-          {/* <YAxis /> */}
+          <XAxis dataKey="timeUnit" stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area
             type="monotone"
-            dataKey="Total"
+            dataKey="nproduct"
             stroke="#aa7c5e"
             fillOpacity={1}
             fill="url(#total)"
           />
-          <Area
-            type="monotone"
-            dataKey="pv"
-            stroke="#82ca9d"
-            fillOpacity={1}
-            fill="url(#total)"
-          />
+          <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#total)" />
         </AreaChart>
       </ResponsiveContainer>
     </div>
-  );
-};
+  )
+}
 
-export default Chart;
+export default Chart

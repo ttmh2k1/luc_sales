@@ -2,10 +2,9 @@ import './sidebar.scss'
 import {
   FaBox,
   FaBoxes,
-  FaChartBar,
-  FaChartPie,
   FaReceipt,
   FaRegListAlt,
+  FaShippingFast,
   FaSignOutAlt,
   FaUser,
   FaUserAstronaut,
@@ -41,85 +40,114 @@ const Sidebar = () => {
       <hr />
       <div className="center">
         <ul>
-          <p className="title">SETTING</p>
-          <Link to="/user" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaUsers className="icon" />
-              <span>Users</span>
-            </li>
-          </Link>
-          <Link to="/role" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaUserCog className="icon" />
-              <span>Role</span>
-            </li>
-          </Link>
-          <Link to="/logs" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaRegListAlt className="icon" />
-              <span>Logs</span>
-            </li>
-          </Link>
-          <p className="title">ORDER</p>
-          <Link to="/order" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaReceipt className="icon" />
-              <span>Orders</span>
-            </li>
-          </Link>
-          <p className="title">MANAGE</p>
-          <Link to="/productGroup" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaBoxes className="icon" />
-              <span>Product Groups</span>
-            </li>
-          </Link>
-          <Link to="/product" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaBox className="icon" />
-              <span>Products</span>
-            </li>
-          </Link>
-          <Link to="/customerGroup" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaUserFriends className="icon" />
-              <span>Customer Groups</span>
-            </li>
-          </Link>
-          <Link to="/customer" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaUser className="icon" />
-              <span>Customers</span>
-            </li>
-          </Link>
-          <Link to="/warehouse" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaWarehouse className="icon" />
-              <span>Warehouse</span>
-            </li>
-          </Link>
-          <p className="title">REPORT</p>
+          {localStorage.getItem('role') !== 'SHIPPER' ? (
+            <>
+              <p className="title">SETTING</p>
+              <Link to="/user" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaUsers className="icon" />
+                  <span>Users</span>
+                </li>
+              </Link>
+              <Link to="/role" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaUserCog className="icon" />
+                  <span>Role</span>
+                </li>
+              </Link>
+              <Link to="/logs" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaRegListAlt className="icon" />
+                  <span>Logs</span>
+                </li>
+              </Link>
+              <p className="title">ORDER</p>
+              <Link to="/order" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaReceipt className="icon" />
+                  <span>Orders</span>
+                </li>
+              </Link>
+              <p className="title">MANAGE</p>
+              <Link to="/productGroup" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaBoxes className="icon" />
+                  <span>Product groups</span>
+                </li>
+              </Link>
+              <Link to="/product" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaBox className="icon" />
+                  <span>Products</span>
+                </li>
+              </Link>
+              <Link to="/customerGroup" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaUserFriends className="icon" />
+                  <span>Customer groups</span>
+                </li>
+              </Link>
+              <Link to="/customer" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaUser className="icon" />
+                  <span>Customers</span>
+                </li>
+              </Link>
+              <Link to="/warehouse" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaWarehouse className="icon" />
+                  <span>Warehouse</span>
+                </li>
+              </Link>
+              {/* <p className="title">REPORT</p>
           <Link to="/businessReport" style={{ textDecoration: 'none' }}>
             <li>
               <FaChartBar className="icon" />
-              <span>Business Report</span>
+              <span>Business report</span>
             </li>
           </Link>
           <Link to="/systemReport" style={{ textDecoration: 'none' }}>
             <li>
               <FaChartPie className="icon" />
-              <span>System Report</span>
+              <span>System report</span>
             </li>
-          </Link>
-          <p className="title">USER</p>
-          <li>
-            <FaUserAstronaut className="icon" />
-            <span>Profile</span>
-          </li>
-          <li onClick={handleSignOut}>
-            <FaSignOutAlt className="icon" />
-            <span>Sign out</span>
-          </li>
+          </Link> */}
+              <p className="title">USER</p>
+              <li>
+                <FaUserAstronaut className="icon" />
+                <span>Profile</span>
+              </li>
+              <li onClick={handleSignOut}>
+                <FaSignOutAlt className="icon" />
+                <span>Sign out</span>
+              </li>
+            </>
+          ) : (
+            <>
+              <p className="title">ORDER</p>
+              <Link to="/order" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaReceipt className="icon" />
+                  <span>Orders</span>
+                </li>
+              </Link>
+              <Link to="/delivery" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaShippingFast className="icon" />
+                  <span>Delivery</span>
+                </li>
+              </Link>
+              <p className="title">USER</p>
+              <li>
+                <FaUserAstronaut className="icon" />
+                <span>Profile</span>
+              </li>
+              <li onClick={handleSignOut}>
+                <FaSignOutAlt className="icon" />
+                <span>Sign out</span>
+              </li>
+            </>
+          )}
         </ul>
       </div>
       <div className="bottom">

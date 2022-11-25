@@ -6,7 +6,7 @@
   background-color: white;
   -webkit-box-shadow: 0.2rem 0.4rem 0.8rem 0.08rem black;
   box-shadow: 0.2rem 0.4rem 0.8rem 0.08rem lightgray;
-  border-radius:0.8rem;
+  border-radius: 0.8rem;
   height: 12rem;
 
   .left,
@@ -19,6 +19,9 @@
       font-weight: bold;
       font-size: 1.2rem;
       color: #955b36;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
     }
 
     .counter {
@@ -30,6 +33,7 @@
       width: max-content;
       font-size: 1.2rem;
       border-bottom: 0.08rem solid #955b36;
+      text-decoration: none;
     }
 
     .percentage {

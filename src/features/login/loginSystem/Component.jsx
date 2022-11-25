@@ -7,12 +7,6 @@ import { useNavigate } from 'react-router-dom'
 function LoginSystemComponent() {
   const classes = LoginStyles()
   const navigate = useNavigate()
-  // useEffect(()=>{
-  //   const token = localStorage.getItem('token')
-  //   if(token){
-  //     navigate("/");
-  //   }
-  // },[])
   // Vô login, Kiểm token có chưa, có thì tự đăng nhập, null thì sẽ hiện ra login
   const handleLogin = async () => {
     const username = document.getElementById('username').value
@@ -21,6 +15,7 @@ function LoginSystemComponent() {
       const resp = await LoginService.login(username, password)
       if (resp?.token) {
         localStorage.setItem('token', resp?.token)
+        localStorage.setItem('role', resp?.userInfo?.role?.name)
         navigate('/')
       }
     } catch (e) {

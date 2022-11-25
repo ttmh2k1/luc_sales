@@ -6,5 +6,5 @@ import api, { SERVICE } from './api';
  * @returns {Promise<import('axios').AxiosResponse<any>>}
  */
 export function getLogs() {
-    return api.GET(`${SERVICE}/api/admin/log`);
+    return api.GET(`${SERVICE}/api/admin/log?size=1000`);
 }

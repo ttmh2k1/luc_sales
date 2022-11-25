@@ -2,7 +2,7 @@ import './userStyle.scss'
 import Navbar from '../../components/atoms/navbar/Navbar'
 import Sidebar from '../../components/atoms/sidebar/Sidebar'
 import ContentBox from '../../components/atoms/ContentBox'
-import { getUsers } from '../../apis/userApi'
+import { getListUsers } from '../../apis/userApi'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -14,7 +14,7 @@ const UserComponent = () => {
 
   useEffect(() => {
     const handleGetUser = async () => {
-      const resp = await getUsers()
+      const resp = await getListUsers()
       const list = resp?.data?.data
       setUsers(list)
     }
@@ -111,7 +111,8 @@ const UserComponent = () => {
       role: item?.role.name,
       email: item?.email,
       phone: item?.phone,
-      status: item?.status,
+      status:
+        item?.status === 'ACTIVE' ? 'Active' : item?.status === 'BANNED' ? 'Banned' : 'Wait banned',
     }
   })
 
