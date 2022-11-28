@@ -17,11 +17,13 @@ import { styled } from '@material-ui/styles'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getProduct, updateProduct } from '../../../apis/productApi'
-import { FaSave } from 'react-icons/fa'
+import { FaPlusSquare, FaSave } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { Image } from 'antd'
+import FormProduct from '../components/Form'
 
 const ProductComponent = () => {
+  const [formVariation, setFormVariation] = useState([<FormProduct />])
   const [product, setProduct] = useState()
   const params = useParams()
   const productId = params.productId
@@ -97,7 +99,7 @@ const ProductComponent = () => {
                       </label>
                       <Item disabled className="textField" id="productCode" value={product?.id} />
                     </div>
-                    <div className="form">
+                    <div className="form" style={{ width: '64%' }}>
                       <label className="title" for="name">
                         Product name
                       </label>
@@ -113,8 +115,28 @@ const ProductComponent = () => {
                       />
                     </div>
                     <div className="form">
-                      <label className="title" for="product">
+                      <label className="title" for="product parents">
                         Product group
+                      </label>
+                      <Item
+                        disabled
+                        className="textField"
+                        id="product"
+                        value={product?.category?.parents[0]?.name}
+                      />
+                    </div>
+                    <div className="form">
+                      <Item
+                        disabled
+                        className="textField"
+                        id="productGroup"
+                        style={{ marginTop: '2rem' }}
+                        value={product?.category?.parents[1]?.name}
+                      />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="product type">
+                        Product type
                       </label>
                       <Item
                         disabled

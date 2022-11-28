@@ -5,6 +5,10 @@ import api, { SERVICE } from './api';
  * @param {*} req
  * @returns {Promise<import('axios').AxiosResponse<any>>}
  */
-export function getStatistic() {
-    return api.GET(`${SERVICE}/api/admin/statistic?month=11&type=MONTH`);
+// export function getStatistic() {
+//     return api.GET(`${SERVICE}/api/admin/statistic?month=11&year=2022&type=MONTH`);
+// }
+
+export function getStatistic(unit, year, type) {
+    return api.GET(`${SERVICE}/api/admin/statistic?month=${unit}&year=${year}&type=${type}`);
 }

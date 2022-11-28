@@ -5,8 +5,8 @@ import {
   AccordionSummary,
   Button,
   Grid,
-  MenuItem,
   Select,
+  TextareaAutosize,
   TextField,
   Typography,
 } from '@mui/material'
@@ -16,15 +16,31 @@ import Sidebar from '../../../components/atoms/sidebar/Sidebar'
 import { styled } from '@material-ui/styles'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getProduct, updateProduct } from '../../../apis/productApi'
-import { FaSave } from 'react-icons/fa'
+import {
+  getProduct,
+  createProduct,
+  getListProductParent,
+  getListCategory,
+} from '../../../apis/productApi'
+import { FaPlusSquare, FaRegTimesCircle, FaUpload } from 'react-icons/fa'
 import { toast } from 'react-toastify'
-import { Image } from 'antd'
-
+import FormProduct from '../components/Form'
 const ProductComponent = () => {
+  const [avatar, setAvatar] = useState()
+  const [images, setImages] = useState([])
+  const [imageList, setImageList] = useState([])
   const [product, setProduct] = useState()
+  const [listParent, setListParent] = useState([])
+  const [listCategory, setListCategory] = useState([])
+  const [listType, setListType] = useState([])
+  const [variation, setVariation] = useState()
+  const [formVariation, setFormVariation] = useState([<FormProduct />])
+  const [idParent, setIdParent] = useState()
+  const [idCategory, setIdCategory] = useState()
+  const [idType, setIdType] = useState()
   const params = useParams()
   const productId = params.productId
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -35,6 +51,33 @@ const ProductComponent = () => {
     }
     handleGetProduct()
   }, [])
+
+  useEffect(() => {
+    const handleGetParent = async () => {
+      const resp = await getListProductParent()
+      const list = resp?.data?.data
+      setListParent(list)
+    }
+    handleGetParent()
+  }, [])
+
+  useEffect(() => {
+    const handleGetCategory = async () => {
+      const resp = await getListCategory(idParent)
+      const list = resp?.data?.data
+      setListCategory(list)
+    }
+    handleGetCategory()
+  }, [idParent])
+
+  useEffect(() => {
+    const handleGetType = async () => {
+      const resp = await getListCategory(idCategory)
+      const list = resp?.data?.data
+      setListType(list)
+    }
+    handleGetType()
+  }, [idCategory])
 
   const style = {
     position: 'bottom-right',
@@ -48,11 +91,28 @@ const ProductComponent = () => {
   }
 
   const handleSave = async () => {
+    const variantName = document.getElementsByClassName('variantName')
+    const variantPrice = document.getElementsByClassName('variantPrice')
+    const variantDiscount = document.getElementsByClassName('variantDiscount')
+    const variantLength = variantName.length
+    const avatar = document.getElementById('avatar').files
+
+    let variantions = []
+    for (let i = 0; i < variantLength; i++) {
+      const v = {
+        variationName: variantName[i].value,
+        tier: variation?.tier,
+        price: Number(variantPrice[i].value),
+        availableQuantity: 0,
+        discount: Number(variantDiscount[i].value),
+      }
+      variantions.push(v)
+    }
     const info = {
       name: product?.name,
-      description: product?.description,
-      idCategory: product?.category?.id,
-      status: product?.status,
+      description: document.getElementById('description').value,
+      variations: variantions,
+      idCategory: idType,
     }
     var transform = new FormData()
     const json = JSON.stringify(info)
@@ -61,35 +121,70 @@ const ProductComponent = () => {
     })
 
     transform.append('info', blob)
+    transform.append('avatar', avatar[0])
+    for (let i = 0; i < imageList.length; i++) {
+      transform.append('images', imageList[i])
+    }
     try {
-      await updateProduct(productId, transform)
-      toast.success('Update successful!', style)
+      await createProduct(transform)
+      toast.success('Create product successful!', style)
       setTimeout(() => {
         navigate('/product')
       }, 2000)
     } catch (error) {
-      toast.error('Update failed!', style)
+      toast.error('Create product failed!', style)
     }
   }
 
+  const onSelectAvatar = (event) => {
+    const avatarFile = event.target.files[0]
+    avatarFile.preview = URL.createObjectURL(avatarFile)
+    setAvatar(avatarFile)
+  }
+
+  useEffect(() => {
+    return () => {
+      avatar && URL.revokeObjectURL(avatar.preview)
+    }
+  }, [avatar])
+
+  const onSelectImages = (event) => {
+    const imageFile = event.target.files
+    const selectedFile = Array.from(imageFile)
+    const imageArray = selectedFile.map((file) => {
+      return URL.createObjectURL(file)
+    })
+    setImages((previousImages) => previousImages.concat(imageArray))
+    setImageList((old) => {
+      return [...old, ...event.target.files]
+    })
+  }
+
   return (
-    <div className="update">
+    <div className="create">
       <Sidebar />
-      <div className="updateContainer">
+      <div className="createContainer">
         <Navbar />
         <div className="body">
-          <ContentBox.Container className="updateForm">
+          <ContentBox.Container className="createForm">
             <ContentBox.Title title="Create new product" />
             <ContentBox.Body>
               <div style={{ width: '100%', padding: '0.4rem' }}>
-                <div className="level0">
-                  <label className="levelHeader">{product?.name}</label>
-                  <Grid container spacing={0} alignItems="flex-start" alignContent="space-around">
+                <div className="createProduct">
+                  <label className="productInfo">{product?.name}</label>
+                  <Grid
+                    className="infor"
+                    container
+                    spacing={0}
+                    alignItems="flex-start"
+                    alignContent="space-around"
+                  >
                     <div className="form">
                       <label className="title" for="name">
                         Product name
                       </label>
-                      <Item
+                      <input
+                        isRequired
                         className="textField"
                         id="productName"
                         value={product?.name}
@@ -101,167 +196,181 @@ const ProductComponent = () => {
                       />
                     </div>
                     <div className="form">
-                      <label className="title" for="product">
+                      <label className="title" for="product parents">
                         Product group
                       </label>
-                      <Item className="textField" id="product" value={product?.category?.name} />
+                      <select
+                        className="select"
+                        id="productParent"
+                        onChange={(e) => {
+                          setIdParent(Number(e.target.value))
+                        }}
+                      >
+                        {listParent.map((item) => (
+                          <option value={item.id} key={item.name}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="form">
-                      <label className="title" for="status">
-                        Status
-                      </label>
-                      <ItemSelect
+                      <select
                         className="select"
-                        id="status"
-                        value={product?.status}
-                        onChange={(e) =>
-                          setProduct((state) => ({ ...state, status: e.target.value }))
-                        }
+                        id="productGroup"
+                        style={{ marginTop: '2rem' }}
+                        onChange={(e) => {
+                          setIdCategory(Number(e.target.value))
+                        }}
                       >
-                        {arrayStatus?.map((item, index) => (
-                          <MenuItem key={index} value={item?.value}>
-                            {item?.name}
-                          </MenuItem>
+                        {listCategory?.child?.map((item) => (
+                          <option value={item.id} key={item.name}>
+                            {item.name}
+                          </option>
                         ))}
-                      </ItemSelect>
+                      </select>
+                    </div>
+                    <div className="form">
+                      <label className="title" for="product type">
+                        Product type
+                      </label>
+                      <select
+                        className="select"
+                        id="productType"
+                        onChange={(e) => {
+                          setIdType(Number(e.target.value))
+                        }}
+                      >
+                        {listType?.child?.map((item) => (
+                          <option value={item.id} key={item.name}>
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   </Grid>
                 </div>
+
+                <div className="descriptionForm">
+                  <label className="descriptionTitle" for="name">
+                    Description
+                  </label>
+                  <TextareaAutosize
+                    className="description"
+                    aria-label="maximum height"
+                    id="description"
+                  />
+                </div>
+
                 <div>
                   <Accordion className="groupParent">
-                    <AccordionSummary className="headerGroup">
-                      <Typography className="titleGroup"></Typography>
+                    <AccordionSummary className="headerParent">
+                      <Typography className="titleParent">
+                        {variation?.tier || 'Attribute'}
+                      </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      <Accordion className="group">
-                        <AccordionSummary className="headerGroup">
-                          <Typography className="titleGroup"></Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography>
-                            <Grid
-                              container
-                              spacing={0}
-                              alignItems="flex-start"
-                              alignContent="space-around"
-                            >
-                              <div className="level">
-                                <div className="form">
-                                  <label className="title" for="variationID">
-                                    Variation ID
-                                  </label>
-                                  <Item
-                                    disabled
-                                    className="textField"
-                                    id="variationID"
-                                    // value={item1?.id}
-                                  />
-                                </div>
-                                <div className="form">
-                                  <label className="title" for="variationName">
-                                    Variation name
-                                  </label>
-                                  <Item
-                                    disabled
-                                    className="textField"
-                                    id="variationName"
-                                    // value={item1?.variationName}
-                                  />
-                                </div>
-                                <div className="form">
-                                  <label className="title" for="price">
-                                    Price
-                                  </label>
-                                  <Item
-                                    disabled
-                                    className="textField"
-                                    id="price"
-                                    // value={item1?.price}
-                                  />
-                                </div>
-                                <div className="form">
-                                  <label className="title" for="discount">
-                                    Discount
-                                  </label>
-                                  <Item
-                                    disabled
-                                    className="textField"
-                                    id="discount"
-                                    // value={item1?.discount}
-                                  />
-                                </div>
-                                <div className="form">
-                                  <label className="title" for="availableQuantity">
-                                    Available quantity
-                                  </label>
-                                  <Item
-                                    disabled
-                                    className="textField"
-                                    id="availableQuantity"
-                                    // value={item1?.availableQuantity}
-                                  />
-                                </div>
-                                <div className="form">
-                                  <label className="title" for="status">
-                                    Status
-                                  </label>
-                                  <Item
-                                    disabled
-                                    className="textField"
-                                    id="status"
-                                    // value={item1?.status}
-                                  />
-                                </div>
-                              </div>
-                            </Grid>
-                          </Typography>
-                        </AccordionDetails>
-                      </Accordion>
+                      <Item
+                        className="textFieldAttribute"
+                        id="attribute"
+                        placeholder="Attribute"
+                        value={variation?.tier}
+                        onChange={(e) =>
+                          setVariation((state) => {
+                            return { ...state, tier: e.target.value }
+                          })
+                        }
+                      />
+                      {formVariation.map((item) => {
+                        return item
+                      })}
+                      <button
+                        className="newVariation"
+                        onClick={() => {
+                          setFormVariation((old) => {
+                            return [...old, <FormProduct />]
+                          })
+                        }}
+                      >
+                        <FaPlusSquare style={{ marginRight: '0.08rem' }} />
+                        New variation
+                      </button>
                     </AccordionDetails>
                   </Accordion>
                 </div>
 
-                <Accordion className="groupParent">
-                  <AccordionSummary className="headerGroup">
-                    <Typography className="titleGroup">Images</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>
-                      <div
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          justifyContent: 'center',
-                        }}
-                      >
-                        <Grid
-                          xs={6}
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                          }}
-                        >
-                          <Image
-                            preview={false}
-                            // src={item?.url}
-                            style={{
-                              width: '20rem',
-                              height: '20rem',
-                              border: '0.08rem solid #955b36',
-                              margin: '1.2rem',
-                            }}
-                          />
-                        </Grid>
-                      </div>
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
+                <div className="avatar">
+                  <label className="titleAvatar">Avatar</label>
+                  <label className="avatarButton">
+                    <FaUpload style={{ marginRight: '0.8rem' }} />
+                    Add avatar
+                    <input
+                      type="file"
+                      name="images"
+                      id="avatar"
+                      onChange={onSelectAvatar}
+                      accept="image/png, image/jpeg, image/jpg, image/webp"
+                    />
+                  </label>
+                  {avatar && (
+                    <div className="imageAvatar">
+                      <img src={avatar.preview} height="200rem" style={{ margin: '0.06rem' }} />
+                    </div>
+                  )}
+                </div>
+
+                <div className="imagesGroup">
+                  <label className="titleImage">Images</label>
+                  <label className="imageButton">
+                    <FaUpload style={{ marginRight: '0.8rem' }} />
+                    Add images
+                    <input
+                      type="file"
+                      name="images"
+                      multiple
+                      id="images"
+                      onChange={onSelectImages}
+                      accept="image/png, image/jpeg, image/jpg, image/webp"
+                    />
+                  </label>
+
+                  {images.length > 0 && images.length > 10 ? (
+                    <p className="note">
+                      You can't upload more than 10 images! <br />
+                      <span>
+                        Please delete <b style={{ color: 'red' }}> {images.length - 10} </b> of them
+                      </span>
+                    </p>
+                  ) : (
+                    <>
+                      {images.length > 0 && <p className="note">Upload {images.length} images</p>}
+                    </>
+                  )}
+                  <div className="images">
+                    {images &&
+                      images.map((img, index) => {
+                        return (
+                          <div key={img} className="image">
+                            <img src={img} className="img" />
+                            <button
+                              className="deleteButton"
+                              onClick={() => setImages(images.filter((e) => e !== img))}
+                            >
+                              <FaRegTimesCircle />
+                            </button>
+                          </div>
+                        )
+                      })}
+                  </div>
+                </div>
               </div>
             </ContentBox.Body>
             <ContentBox.Footer isGoBack>
-              <Button className="saveButton" startIcon={<FaSave />} onClick={(e) => handleSave()}>
-                Save
+              <Button
+                className="createButton"
+                startIcon={<FaPlusSquare />}
+                onClick={(e) => handleSave()}
+              >
+                Create
               </Button>
               <Link to="/customerGroup" style={{ textDecoration: 'none' }} />
             </ContentBox.Footer>
@@ -295,10 +404,5 @@ const ItemSelect = styled(Select)({
     backgroundColor: 'white',
   },
 })
-
-const arrayStatus = [
-  { name: 'Enabled', value: 'ENABLED ' },
-  { name: 'Disabled', value: 'DISABLED' },
-]
 
 export default ProductComponent
