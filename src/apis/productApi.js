@@ -11,14 +11,22 @@ export function getListProduct(req) {
     return api.GET(`${SERVICE}/api/admin/product-manage?size=500${queries}`);
 }
 
+export function getListProductParent(req) {
+    const queries = combineQueriesUrl({ ...req });
+    return api.GET(`${SERVICE}/api/admin/product-category${queries}`);
+}
+
+export function getListCategory(id) {
+    return api.GET(`${SERVICE}/api/admin/product-category/${id}`);
+}
+
 export function getProduct(id) {
     return api.GET(`${SERVICE}/api/admin/product-manage/${id}`);
 }
 
-export function updateProduct1(params) {
-    const { id, data } = params
-    return api.PUT(`${SERVICE}/api/admin/product-manage/${id}`, {
-        ...data
+export function createProduct(data) {
+    return api.POST(`${SERVICE}/api/admin/product-manage`, data, {
+        "Content-Type": "multipart/form-data",
     });
 }
 

@@ -1,15 +1,5 @@
 import './chart.scss'
-import {
-  LineChart,
-  Line,
-  XAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-} from 'recharts'
+import { XAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, BarChart, Bar } from 'recharts'
 import { getStatistic } from '../../../apis/statistic'
 import { useEffect, useState } from 'react'
 
@@ -28,7 +18,7 @@ const Chart = () => {
     <div className="chart">
       <div className="title">Revenue in month</div>
       <ResponsiveContainer width="100%" aspect={2 / 1}>
-        <AreaChart
+        <BarChart
           width={730}
           height={150}
           data={statistic}
@@ -36,22 +26,22 @@ const Chart = () => {
         >
           <defs>
             <linearGradient id="total" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#aa7c5e" stopOpacity={0.8} />
+              <stop offset="100%" stopColor="#aa7c5e" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#aa7c5e" stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis dataKey="timeUnit" stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
-          <Area
+          <Bar
             type="monotone"
-            dataKey="nproduct"
+            dataKey="income"
             stroke="#aa7c5e"
             fillOpacity={1}
             fill="url(#total)"
           />
-          <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#total)" />
-        </AreaChart>
+          <Area type="monotone" dataKey="pv" fillOpacity={1} />
+        </BarChart>
       </ResponsiveContainer>
     </div>
   )

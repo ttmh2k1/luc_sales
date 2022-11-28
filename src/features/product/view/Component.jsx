@@ -47,15 +47,35 @@ const ProductComponent = () => {
                       </label>
                       <Item disabled className="textField" id="productCode" value={product?.id} />
                     </div>
-                    <div className="form">
+                    <div className="form" style={{ width: '64%' }}>
                       <label className="title" for="name">
                         Product name
                       </label>
                       <Item disabled className="textField" id="productName" value={product?.name} />
                     </div>
                     <div className="form">
-                      <label className="title" for="product">
+                      <label className="title" for="product parents">
                         Product group
+                      </label>
+                      <Item
+                        disabled
+                        className="textField"
+                        id="product"
+                        value={product?.category?.parents[0]?.name}
+                      />
+                    </div>
+                    <div className="form">
+                      <Item
+                        disabled
+                        className="textField"
+                        id="productGroup"
+                        style={{ marginTop: '2rem' }}
+                        value={product?.category?.parents[1]?.name}
+                      />
+                    </div>
+                    <div className="form">
+                      <label className="title" for="product type">
+                        Product type
                       </label>
                       <Item
                         disabled

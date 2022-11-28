@@ -110,13 +110,13 @@ const ProductComponent = () => {
         <div className="body">
           <div className="header">
             <ContentBox.Title title="List product" />
-            {/* <Button
+            <Button
               className="createButton"
               startIcon={<FaPlusCircle />}
               onClick={() => navigate('/product/create')}
             >
               New
-            </Button> */}
+            </Button>
           </div>
           <div className="template">
             <div className="datatable">

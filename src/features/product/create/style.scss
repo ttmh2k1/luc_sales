@@ -1,7 +1,8 @@
-.update {
+.create {
   display: flex;
   width: 100%;
-  .updateContainer {
+
+  .createContainer {
     flex: 6;
     background-color: #eee;
 
@@ -11,13 +12,65 @@
       margin: 2rem;
       border-radius: 0.8rem;
 
-      .level0 {
-        .levelHeader {
+      .createProduct {
+        .productInfo {
           display: flex;
-          color: #955b36;
-          font-weight: bold;
+          color: #955b36 !important;
+          font-weight: bold !important;
           margin-left: 1.2rem;
           margin-top: 1.2rem;
+        }
+
+        .infor {
+          .form {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            min-width: 25vw;
+            max-width: 100%;
+            margin: 1.2rem;
+
+            .title {
+              color: #955b36;
+              font-size: 1.6rem;
+              font-weight: bold;
+              margin-bottom: 0.4rem;
+            }
+
+            .textField {
+              border-radius: 0.4rem;
+              font-size: 1.6rem;
+              height: 3.2rem;
+              border: 0.08rem solid gray;
+            }
+
+            .select {
+              border-radius: 0.4rem;
+              font-size: 1.6rem;
+              height: 3.6rem;
+            }
+          }
+        }
+      }
+
+      .descriptionForm {
+        display: flex;
+        flex-direction: column;
+        min-width: 25vw;
+        max-width: 100%;
+        margin: 1.2rem;
+
+        .descriptionTitle {
+          color: #955b36;
+          font-size: 1.6rem;
+          font-weight: bold;
+          margin-bottom: 0.4rem;
+        }
+
+        .description {
+          border-radius: 0.4rem;
+          font-size: 1.6rem;
+          resize: vertical;
         }
       }
 
@@ -26,13 +79,13 @@
         .MuiAccordionSummary-root {
           min-height: 4rem;
         }
-        .headerGroup {
+        .headerParent {
           background-color: antiquewhite;
           height: 2rem;
           .MuiAccordionSummary-content {
             margin: 0;
           }
-          .titleGroup {
+          .titleParent {
             color: #955b36;
             font-size: 1.6rem;
             font-weight: bold;
@@ -41,8 +94,50 @@
         .MuiAccordionDetails-root {
           padding: 0;
         }
+        .textFieldAttribute {
+          display: flex;
+          flex-direction: column;
+          width: 30%;
+          min-width: 25vw;
+          max-width: 100%;
+          margin: 1.2rem;
+        }
+        .newVariation {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          margin: 1.2rem 2.4rem;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          height: 2.8rem;
+          width: 10rem;
+          cursor: pointer;
+          font-size: large;
+          color: #955b36;
+          background-color: antiquewhite;
+          font-size: 1.2rem;
+          text-transform: none;
+
+          &:hover {
+            background-color: #955b36;
+            color: white;
+          }
+        }
         .group {
           margin: 1.2rem 2.4rem;
+          .headerGroup {
+            background-color: antiquewhite;
+            height: 2rem;
+            .MuiAccordionSummary-content {
+              margin: 0;
+            }
+            .titleGroup {
+              color: #955b36;
+              font-size: 1.6rem;
+              font-weight: bold;
+            }
+          }
           .level {
             display: flex;
             flex-direction: row;
@@ -50,9 +145,10 @@
             .form {
               display: flex;
               flex-direction: column;
-              width: 10%;
-              min-width: 10vw;
+              width: 30%;
+              min-width: 20vw;
               max-width: 100%;
+              margin: 1.2rem;
 
               .title {
                 color: #955b36;
@@ -62,12 +158,171 @@
               }
 
               .textField {
-                background-color: #f0f0f0;
                 border-radius: 0.4rem;
                 font-size: 1.6rem;
+                height: 3.2rem;
+                border: 0.08rem solid gray;
               }
             }
           }
+        }
+      }
+
+      .avatar {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        min-width: 25vw;
+        max-width: 100%;
+        margin: 1.2rem;
+
+        .titleAvatar {
+          color: #955b36;
+          font-size: 1.6rem;
+          font-weight: bold;
+          margin-bottom: 0.4rem;
+        }
+
+        .avatarButton {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          height: 2.8rem;
+          width: 10rem;
+          cursor: pointer;
+          font-size: large;
+          color: #955b36;
+          background-color: antiquewhite;
+          font-size: 1.2rem;
+          text-transform: none;
+
+          &:hover {
+            background-color: #955b36;
+            color: white;
+          }
+
+          input {
+            display: none;
+          }
+        }
+
+        .imageAvatar {
+          margin-top: 1.2rem;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: fit-content;
+        }
+      }
+
+      .imagesGroup {
+        display: flex;
+        flex-direction: column;
+        min-width: 25vw;
+        max-width: 100%;
+        margin: 1.2rem;
+
+        .titleImage {
+          color: #955b36;
+          font-size: 1.6rem;
+          font-weight: bold;
+          margin-bottom: 0.4rem;
+        }
+
+        .imageButton {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          height: 2.8rem;
+          width: 10rem;
+          cursor: pointer;
+          font-size: large;
+          color: #955b36;
+          background-color: antiquewhite;
+          font-size: 1.2rem;
+          text-transform: none;
+
+          &:hover {
+            background-color: #955b36;
+            color: white;
+          }
+
+          input {
+            display: none;
+          }
+        }
+
+        .note {
+          margin-top: 1.2rem;
+          font-size: 1.6rem;
+          line-height: 2rem;
+        }
+
+        .imageAvatar {
+          margin-top: 0.8rem;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: fit-content;
+        }
+
+        .images {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          align-items: center;
+
+          .image {
+            margin: 0.8rem;
+            position: relative;
+
+            .img {
+              height: 20rem;
+              width: 20rem;
+              border: 0.08rem solid black;
+              border-radius: 0.4rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .deleteButton {
+              background-color: red;
+              color: white;
+              border: 0.08rem solid #955b36;
+              border-radius: 0.4rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 2.4rem;
+              width: 2.4rem;
+              margin-top: 0.4rem;
+            }
+          }
+        }
+      }
+
+      .createButton {
+        color: white;
+        background-color: #ed9055;
+        border: 0.08rem solid black !important;
+        height: 3.2rem;
+        width: 12rem;
+        font-size: 1.6rem;
+        text-transform: none;
+
+        &:hover {
+          background-color: #955b36;
         }
       }
     }

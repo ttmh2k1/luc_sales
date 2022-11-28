@@ -1,10 +1,21 @@
 .systemReport {
-    display: flex;
-    width: 100%;
-  
-    .systemReportContainer {
-      flex: 6;
-      background-color: #eee;
+  display: flex;
+
+  .systemReportContainer {
+    flex: 6;
+    background-color: #eee;
+
+    .systemStatistic {
+      border-radius: 0.8rem;
+      background-color: white;
+      margin: 2rem;
+      padding: 0.4rem 1.6rem;
+
+      .title {
+        color: #955b36;
+        font-weight: bold;
+        margin: 1.6rem;
+      }
     }
   }
-  
+}

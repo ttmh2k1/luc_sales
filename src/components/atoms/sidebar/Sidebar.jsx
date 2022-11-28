@@ -2,6 +2,7 @@ import './sidebar.scss'
 import {
   FaBox,
   FaBoxes,
+  FaChartPie,
   FaReceipt,
   FaRegListAlt,
   FaShippingFast,
@@ -99,19 +100,19 @@ const Sidebar = () => {
                   <span>Warehouse</span>
                 </li>
               </Link>
-              {/* <p className="title">REPORT</p>
-          <Link to="/businessReport" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaChartBar className="icon" />
-              <span>Business report</span>
-            </li>
-          </Link>
-          <Link to="/systemReport" style={{ textDecoration: 'none' }}>
-            <li>
-              <FaChartPie className="icon" />
-              <span>System report</span>
-            </li>
-          </Link> */}
+              <p className="title">REPORT</p>
+              {/* <Link to="/businessReport" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaChartBar className="icon" />
+                  <span>Business report</span>
+                </li>
+              </Link> */}
+              <Link to="/systemReport" style={{ textDecoration: 'none' }}>
+                <li>
+                  <FaChartPie className="icon" />
+                  <span>System report</span>
+                </li>
+              </Link>
               <p className="title">USER</p>
               <li>
                 <FaUserAstronaut className="icon" />

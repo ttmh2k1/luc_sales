@@ -53,6 +53,7 @@
               width: 10%;
               min-width: 10vw;
               max-width: 100%;
+              margin: 1.2rem;
 
               .title {
                 color: #955b36;
@@ -62,6 +63,13 @@
               }
 
               .textField {
+                background-color: #f0f0f0;
+                border-radius: 0.4rem;
+                font-size: 1.6rem;
+              }
+
+              .group1 {
+                margin-top: 2rem;
                 background-color: #f0f0f0;
                 border-radius: 0.4rem;
                 font-size: 1.6rem;
