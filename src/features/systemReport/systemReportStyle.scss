@@ -11,10 +11,119 @@
       margin: 2rem;
       padding: 0.4rem 1.6rem;
 
-      .title {
+      .header {
         color: #955b36;
+        font-size: 2rem;
         font-weight: bold;
         margin: 1.6rem;
+      }
+
+      .filter {
+        display: flex;
+        flex-direction: row;
+
+        .form {
+          display: flex;
+          flex-direction: column;
+          width: 20%;
+          min-width: 15vw;
+          max-width: 100%;
+          margin: 0 1.2rem;
+
+          .title {
+            color: #955b36;
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+          }
+          .select {
+            height: 2.8rem;
+            border-radius: 0.4rem;
+            font-size: 1.6rem;
+          }
+        }
+
+        .filterButton {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          height: 2.8rem;
+          width: 10rem;
+          cursor: pointer;
+          font-size: large;
+          color: #955b36;
+          background-color: antiquewhite;
+          font-size: 1.2rem;
+          text-transform: none;
+          margin-top: 2rem;
+          &:hover {
+            background-color: #955b36;
+            color: white;
+          }
+        }
+      }
+    }
+
+    .revenueStatistics {
+      border-radius: 0.8rem;
+      background-color: white;
+      margin: 2rem;
+      padding: 0.4rem 1.6rem;
+
+      .header {
+        color: #955b36;
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 1.6rem;
+      }
+
+      .filter {
+        display: flex;
+        flex-direction: row;
+
+        .form {
+          display: flex;
+          flex-direction: column;
+          width: 20%;
+          min-width: 15vw;
+          max-width: 100%;
+          margin: 0 1.2rem;
+
+          .title {
+            color: #955b36;
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+          }
+          .select {
+            height: 2.8rem;
+            border-radius: 0.4rem;
+            font-size: 1.6rem;
+          }
+        }
+
+        .filterButton {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border: 0.08rem solid black;
+          border-radius: 0.4rem;
+          height: 2.8rem;
+          width: 10rem;
+          cursor: pointer;
+          font-size: large;
+          color: #955b36;
+          background-color: antiquewhite;
+          font-size: 1.2rem;
+          text-transform: none;
+          margin-top: 2rem;
+          &:hover {
+            background-color: #955b36;
+            color: white;
+          }
+        }
       }
     }
   }
