@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Grid,
+  TextareaAutosize,
   TextField,
   Typography,
 } from '@mui/material'
@@ -91,6 +92,18 @@ const ProductComponent = () => {
                       <Item disabled className="textField" id="status" value={product?.status} />
                     </div>
                   </Grid>
+                </div>
+                <div className="descriptionForm">
+                  <label className="descriptionTitle" for="name">
+                    Description
+                  </label>
+                  <TextareaAutosize
+                    disabled
+                    className="description"
+                    aria-label="maximum height"
+                    id="description"
+                    value={product?.description}
+                  />
                 </div>
                 {product?.tierVariations &&
                   product?.tierVariations.map((item) => (

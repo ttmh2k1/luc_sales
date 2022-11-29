@@ -7,6 +7,7 @@ import {
   Grid,
   MenuItem,
   Select,
+  TextareaAutosize,
   TextField,
   Typography,
 } from '@mui/material'
@@ -17,13 +18,11 @@ import { styled } from '@material-ui/styles'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getProduct, updateProduct } from '../../../apis/productApi'
-import { FaPlusSquare, FaSave } from 'react-icons/fa'
+import { FaSave } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { Image } from 'antd'
-import FormProduct from '../components/Form'
 
 const ProductComponent = () => {
-  const [formVariation, setFormVariation] = useState([<FormProduct />])
   const [product, setProduct] = useState()
   const params = useParams()
   const productId = params.productId
@@ -165,6 +164,22 @@ const ProductComponent = () => {
                       </ItemSelect>
                     </div>
                   </Grid>
+                </div>
+                <div className="descriptionForm">
+                  <label className="descriptionTitle" for="name">
+                    Description
+                  </label>
+                  <TextareaAutosize
+                    className="description"
+                    aria-label="maximum height"
+                    id="description"
+                    value={product?.description}
+                    onChange={(e) =>
+                      setProduct((state) => {
+                        return { ...state, description: e.target.value }
+                      })
+                    }
+                  />
                 </div>
                 {product?.tierVariations &&
                   product?.tierVariations.map((item) => (
