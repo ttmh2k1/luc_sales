@@ -170,10 +170,26 @@ const OrderComponent = () => {
                     <Item disabled className="textField" id="email" value={order?.buyer?.email} />
                   </div>
                   <div className="form">
-                    <label className="title" for="phone">
-                      Phone
+                    <label className="title" for="receiverName">
+                      Receiver name
                     </label>
-                    <Item disabled className="textField" id="phone" value={order?.phone} />
+                    <Item
+                      disabled
+                      className="textField"
+                      id="receiverName"
+                      value={order?.deliveryAddress?.receiverName}
+                    />
+                  </div>
+                  <div className="form">
+                    <label className="title" for="receiverPhone">
+                      Receiver phone
+                    </label>
+                    <Item
+                      disabled
+                      className="textField"
+                      id="receiverPhone"
+                      value={order?.deliveryAddress?.receiverPhone}
+                    />
                   </div>
                   <div className="form">
                     <label className="title" for="address">
