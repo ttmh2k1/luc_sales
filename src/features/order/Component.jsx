@@ -9,6 +9,7 @@ import ContentBox from '../../components/atoms/ContentBox'
 import styled from 'styled-components'
 import { getListOrder, updateOrder } from '../../apis/orderApi'
 import { toast } from 'react-toastify'
+import { formatNumber } from '../../utils/functionHelper'
 
 const OrderComponent = () => {
   const [listOrder, setListOrder] = useState([])
@@ -81,10 +82,10 @@ const OrderComponent = () => {
       headerAlign: 'center',
     },
     {
-      field: 'price',
+      field: 'payPrice',
       headerName: 'Price',
       width: 100,
-      align: 'center',
+      align: 'right',
       headerAlign: 'center',
     },
     {
@@ -110,7 +111,7 @@ const OrderComponent = () => {
       customerID: item?.buyer?.id,
       customerName: item?.buyer?.fullname,
       customerGroup: item?.buyer?.rank?.name,
-      price: item?.price,
+      payPrice: formatNumber(item?.payPrice),
       createTime: item?.createTime,
       status: item?.status,
     }
@@ -132,13 +133,20 @@ const OrderComponent = () => {
             </Link>
             {localStorage.getItem('role') !== 'SHIPPER' && (
               <>
-                <Link to={`/order/approve/${props.id}`} style={{ textDecoration: 'none' }}>
-                  <div className="approveButton">
-                    <FaCheck />
-                  </div>
-                </Link>
                 {props?.row?.status &&
-                  (props?.row?.status === 'WAIT_FOR_CONFIRM' ||
+                (props?.row?.status === 'COMPLETED' || props?.row?.status === 'CANCELLED') ? (
+                  <></>
+                ) : (
+                  <Link to={`/order/approve/${props.id}`} style={{ textDecoration: 'none' }}>
+                    <div className="approveButton">
+                      <FaCheck />
+                    </div>
+                  </Link>
+                )}
+
+                {props?.row?.status &&
+                  (props?.row?.status === 'WAIT_FOR_PAYMENT' ||
+                    props?.row?.status === 'WAIT_FOR_CONFIRM' ||
                     props?.row?.status === 'WAIT_FOR_SEND') && (
                     <div className="denyButton">
                       <FaRegTimesCircle onClick={() => handleCancel(props.id)} />

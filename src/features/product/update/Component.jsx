@@ -21,6 +21,7 @@ import { getProduct, updateProduct } from '../../../apis/productApi'
 import { FaSave } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { Image } from 'antd'
+import { formatNumber } from '../../../utils/functionHelper'
 
 const ProductComponent = () => {
   const [product, setProduct] = useState()
@@ -236,7 +237,7 @@ const ProductComponent = () => {
                                             disabled
                                             className="textField"
                                             id="price"
-                                            value={item1?.price}
+                                            value={formatNumber(item1?.price)}
                                           />
                                         </div>
                                         <div className="form">

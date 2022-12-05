@@ -25,6 +25,7 @@ import {
 import { FaPlusSquare, FaRegTimesCircle, FaUpload } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import FormProduct from '../components/Form'
+import { formatNumber } from '../../../utils/functionHelper'
 const ProductComponent = () => {
   const [avatar, setAvatar] = useState()
   const [images, setImages] = useState([])
@@ -102,7 +103,7 @@ const ProductComponent = () => {
       const v = {
         variationName: variantName[i].value,
         tier: variation?.tier,
-        price: Number(variantPrice[i].value),
+        price: formatNumber(Number(variantPrice[i].value)),
         availableQuantity: 0,
         discount: Number(variantDiscount[i].value),
       }

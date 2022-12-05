@@ -279,6 +279,7 @@ const SystemReportComponent = () => {
           <div className="chartSystem">
             <ResponsiveContainer width="100%" aspect={3}>
               <LineChart
+                label="Income"
                 data={income}
                 width={500}
                 height={300}

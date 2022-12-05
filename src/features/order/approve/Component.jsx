@@ -11,6 +11,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import { FaSave } from 'react-icons/fa'
 import { toast } from 'react-toastify'
 import { Divider, Typography } from 'antd'
+import { formatNumber } from '../../../utils/functionHelper'
 
 const OrderComponent = () => {
   const [order, setOrder] = useState()
@@ -45,14 +46,14 @@ const OrderComponent = () => {
     {
       field: 'productName',
       headerName: 'Product name',
-      width: 600,
-      align: 'center',
+      width: 400,
+      align: 'left',
       headerAlign: 'center',
     },
     {
       field: 'variationName',
       headerName: 'Attribute',
-      width: 180,
+      width: 150,
       align: 'left',
       headerAlign: 'center',
     },
@@ -60,7 +61,21 @@ const OrderComponent = () => {
       field: 'price',
       headerName: 'Price',
       width: 100,
+      align: 'right',
+      headerAlign: 'center',
+    },
+    {
+      field: 'discount',
+      headerName: 'Discount',
+      width: 100,
       align: 'center',
+      headerAlign: 'center',
+    },
+    {
+      field: 'unitPrice',
+      headerName: 'Promotion price',
+      width: 130,
+      align: 'right',
       headerAlign: 'center',
     },
     {
@@ -78,7 +93,9 @@ const OrderComponent = () => {
       id: item?.productVariation?.id,
       productName: item?.productVariation?.product?.name,
       variationName: item?.productVariation?.variationName,
-      price: item?.productVariation?.price,
+      price: formatNumber(item?.productVariation?.price),
+      discount: item?.productVariation?.discount + '%',
+      unitPrice: formatNumber(item?.unitPrice),
       quantity: item?.quantity,
     }
   })
@@ -107,13 +124,13 @@ const OrderComponent = () => {
     }
   }
   return (
-    <div className="view">
+    <div className="approve">
       <Sidebar />
-      <div className="viewContainer">
+      <div className="approveContainer">
         <Navbar />
         <div className="body">
-          <ContentBox.Container className="viewForm">
-            <ContentBox.Title title="View order information" />
+          <ContentBox.Container className="approveForm">
+            <ContentBox.Title title="Approve order" />
             <ContentBox.Body>
               <div style={{ width: '100%', padding: '0.4rem' }}>
                 <label className="header">Customer information</label>
@@ -274,22 +291,44 @@ const OrderComponent = () => {
                     )}
                   </div>
                 </div>
-                <Grid alignItems="flex-end" container justifyContent="flex-end" direction="column">
+                <Grid
+                  className="text"
+                  alignItems="flex-end"
+                  container
+                  justifyContent="flex-end"
+                  direction="column"
+                >
                   <Typography>
                     {'Price: '}
-                    {order?.price}
+                    {formatNumber(
+                      order?.orderDetails
+                        ?.map((item) => {
+                          return item?.unitPrice * item?.quantity
+                        })
+                        .reduce((acc, item) => acc + item, 0),
+                    )}
                   </Typography>
-                  <Typography>{'Ship: 30000'}</Typography>
+                  <Typography>
+                    {'Customer discount: - '}
+                    {formatNumber(
+                      order?.buyer?.rank?.discountRate *
+                        order?.orderDetails
+                          ?.map((item) => {
+                            return item?.unitPrice * item?.quantity
+                          })
+                          .reduce((acc, item) => acc + item, 0),
+                    )}
+                  </Typography>
+                  <Typography>{'Ship: 30,000'}</Typography>
                   <Divider style={{ width: '100%' }} />
                   <div style={{ display: 'flex' }}>
                     <Typography
                       style={{
                         fontWeight: 'bolder',
-                        marginRight: '4px',
                       }}
                     >
                       {'Total amount order: '}
-                      {order?.payPrice}
+                      {formatNumber(order?.payPrice)}
                     </Typography>
                   </div>
                 </Grid>

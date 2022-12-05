@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { getOrder } from '../../../apis/orderApi'
 import { DataGrid } from '@mui/x-data-grid'
 import { Divider, Typography } from 'antd'
+import { formatNumber } from '../../../utils/functionHelper'
 
 const OrderComponent = () => {
   const [order, setOrder] = useState()
@@ -40,14 +41,14 @@ const OrderComponent = () => {
     {
       field: 'productName',
       headerName: 'Product name',
-      width: 600,
-      align: 'center',
+      width: 400,
+      align: 'left',
       headerAlign: 'center',
     },
     {
       field: 'variationName',
       headerName: 'Attribute',
-      width: 180,
+      width: 150,
       align: 'left',
       headerAlign: 'center',
     },
@@ -55,7 +56,21 @@ const OrderComponent = () => {
       field: 'price',
       headerName: 'Price',
       width: 100,
+      align: 'right',
+      headerAlign: 'center',
+    },
+    {
+      field: 'discount',
+      headerName: 'Discount',
+      width: 100,
       align: 'center',
+      headerAlign: 'center',
+    },
+    {
+      field: 'unitPrice',
+      headerName: 'Promotion price',
+      width: 130,
+      align: 'right',
       headerAlign: 'center',
     },
     {
@@ -73,7 +88,9 @@ const OrderComponent = () => {
       id: item?.productVariation?.id,
       productName: item?.productVariation?.product?.name,
       variationName: item?.productVariation?.variationName,
-      price: item?.productVariation?.price,
+      price: formatNumber(item?.productVariation?.price),
+      discount: item?.productVariation?.discount + '%',
+      unitPrice: formatNumber(item?.unitPrice),
       quantity: item?.quantity,
     }
   })
@@ -244,9 +261,26 @@ const OrderComponent = () => {
                 >
                   <Typography>
                     {'Price: '}
-                    {order?.price}
+                    {formatNumber(
+                      order?.orderDetails
+                        ?.map((item) => {
+                          return item?.unitPrice * item?.quantity
+                        })
+                        .reduce((acc, item) => acc + item, 0),
+                    )}
                   </Typography>
-                  <Typography>{'Ship: 30000'}</Typography>
+                  <Typography>
+                    {'Customer discount: - '}
+                    {formatNumber(
+                      order?.buyer?.rank?.discountRate *
+                        order?.orderDetails
+                          ?.map((item) => {
+                            return item?.unitPrice * item?.quantity
+                          })
+                          .reduce((acc, item) => acc + item, 0),
+                    )}
+                  </Typography>
+                  <Typography>{'Ship: 30,000'}</Typography>
                   <Divider style={{ width: '100%' }} />
                   <div style={{ display: 'flex' }}>
                     <Typography
@@ -255,7 +289,7 @@ const OrderComponent = () => {
                       }}
                     >
                       {'Total amount order: '}
-                      {order?.payPrice}
+                      {formatNumber(order?.payPrice)}
                     </Typography>
                   </div>
                 </Grid>

@@ -11,6 +11,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import { Divider, Typography } from 'antd'
 import { FaCheck } from 'react-icons/fa'
 import { toast } from 'react-toastify'
+import { formatNumber } from '../../../utils/functionHelper'
 
 const DeliveryComponent = () => {
   const [order, setOrder] = useState()
@@ -58,7 +59,7 @@ const DeliveryComponent = () => {
       field: 'price',
       headerName: 'Price',
       width: 100,
-      align: 'center',
+      align: 'right',
       headerAlign: 'center',
     },
     {
@@ -76,7 +77,7 @@ const DeliveryComponent = () => {
       id: item?.productVariation?.id,
       productName: item?.productVariation?.product?.name,
       variationName: item?.productVariation?.variationName,
-      price: item?.productVariation?.price,
+      price: formatNumber(item?.productVariation?.price),
       quantity: item?.quantity,
     }
   })
@@ -264,9 +265,9 @@ const DeliveryComponent = () => {
                 >
                   <Typography>
                     {'Price: '}
-                    {order?.price}
+                    {formatNumber(order?.price)}
                   </Typography>
-                  <Typography>{'Ship: 30000'}</Typography>
+                  <Typography>{'Ship: 30,000'}</Typography>
                   <Divider style={{ width: '100%' }} />
                   <div style={{ display: 'flex' }}>
                     <Typography
@@ -275,7 +276,7 @@ const DeliveryComponent = () => {
                       }}
                     >
                       {'Total amount order: '}
-                      {order?.payPrice}
+                      {formatNumber(order?.payPrice)}
                     </Typography>
                   </div>
                 </Grid>
