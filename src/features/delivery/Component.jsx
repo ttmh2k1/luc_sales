@@ -9,6 +9,7 @@ import ContentBox from '../../components/atoms/ContentBox'
 import styled from 'styled-components'
 import { listDelivery, listDelivery1, updateOrder } from '../../apis/orderApi'
 import { toast } from 'react-toastify'
+import { formatNumber } from '../../utils/functionHelper'
 
 const DeliveryComponent = () => {
   const [listOrder, setListOrder] = useState([])
@@ -98,7 +99,7 @@ const DeliveryComponent = () => {
       field: 'price',
       headerName: 'Price',
       width: 100,
-      align: 'center',
+      align: 'right',
       headerAlign: 'center',
     },
     {
@@ -124,7 +125,7 @@ const DeliveryComponent = () => {
       customerID: item?.buyer?.id,
       customerName: item?.buyer?.fullname,
       customerGroup: item?.buyer?.rank?.name,
-      price: item?.price,
+      price: formatNumber(item?.price),
       createTime: item?.createTime,
       status: item?.status,
     }
